@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="我不张杨的博客">
 <meta property="og:description" content="一些git常用到的命令与出现的常见问题的解决方法">
 <meta property="og:locale" content="zn-Hans">
-<meta property="og:updated_time" content="2019-11-22T13:02:05.667Z">
+<meta property="og:updated_time" content="2019-11-22T13:03:40.291Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="我不张杨的博客" type="application/atom+xml">
@@ -187,7 +187,7 @@
 <li><strong>操作：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git已经智能的提示我们使用git reset HEAD &lt;file&gt;...来让暂存区文件回退到工作区。</span><br><span class="line">git reset HEAD 文件路径 //回退指定的文件到工作区</span><br><span class="line">例如： git reset HEAD Test</span><br></pre></td></tr></table></figure></li>
 <li><strong>再次查看git仓库状态，文件处于工作区了：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">Untracked files:</span><br><span class="line">    (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line"></span><br><span class="line">    Test</span><br></pre></td></tr></table></figure>
 4、打patch</li>
-<li>*<em>团队开发中，自己本地修改了一些代码，还没有验证是否正确，此时不能往git服务器去推送。恰好同事也在跟这个问题，他希望在我的基础上进行追踪，希望我把我已经修改的代码给他。这个时候我可以通过打patch的方式实现。 *</em></li>
+<li><strong>团队开发中，自己本地修改了一些代码，还没有验证是否正确，此时不能往git服务器去推送。恰好同事也在跟这个问题，他希望在我的基础上进行追踪，希望我把我已经修改的代码给他。这个时候我可以通过打patch的方式实现。</strong></li>
 </ul>
 <p><strong>操作：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">生成patch：</span><br><span class="line">1&gt;首先将自己的修改的代码本地进行提交即commit</span><br><span class="line">2&gt;git format-patch &lt;指定的commitId&gt;//注意生成的patch是这个commitId以上的提交</span><br><span class="line"></span><br><span class="line">比如有三个commitId： ac4f6d -- bcef67 -- adfc34</span><br><span class="line">执行git format-patch adfc34 就会生成两个patch</span><br><span class="line">第一个patch是 bcef67 -- adfc34 这两次提交的差异文件</span><br><span class="line">第二个patch是 ac4f6d -- bcef67 这两次提交的差异文件</span><br><span class="line"></span><br><span class="line">所以打patch就是生成提交之间的差异文件</span><br><span class="line"></span><br><span class="line">应用patch:</span><br><span class="line">git am 指定的patch</span><br></pre></td></tr></table></figure>

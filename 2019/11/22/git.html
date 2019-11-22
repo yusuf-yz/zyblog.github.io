@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="我不张杨的博客">
 <meta property="og:description" content="一些git常用到的命令与出现的常见问题的解决方法">
 <meta property="og:locale" content="zn-Hans">
-<meta property="og:updated_time" content="2019-11-22T12:48:21.577Z">
+<meta property="og:updated_time" content="2019-11-22T12:49:50.943Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="我不张杨的博客" type="application/atom+xml">
@@ -162,11 +162,11 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="Git常用命令与常见问题"><a href="#Git常用命令与常见问题" class="headerlink" title="Git常用命令与常见问题"></a>Git常用命令与常见问题</h3><p>1、vscode 用git 拉取代码，提示：在签出前，请清理存储库工作树<br><strong>手动解决</strong></p>
-<figure class="highlight plain"><figcaption><span>stash</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git pull</span><br><span class="line"></span><br><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br><span class="line"></span><br><span class="line">git pull</span><br><span class="line"></span><br><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
 
 
 <p><strong>放弃本地修改，直接覆盖，这个会重置掉未commit到本地的修改文件，用之前考虑清楚</strong></p>
-<figure class="highlight plain"><figcaption><span>reset --hard</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard</span><br><span class="line"></span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
 
       
 
@@ -422,11 +422,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">系统</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">系统</a>
               </li>
             
             <div class="clearfix"></div>

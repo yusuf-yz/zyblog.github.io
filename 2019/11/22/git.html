@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="我不张杨的博客">
 <meta property="og:description" content="一些git常用到的命令与出现的常见问题的解决方法">
 <meta property="og:locale" content="zn-Hans">
-<meta property="og:updated_time" content="2019-11-22T12:52:14.761Z">
+<meta property="og:updated_time" content="2019-11-22T13:02:05.667Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="我不张杨的博客" type="application/atom+xml">
@@ -170,8 +170,27 @@
 </ul>
 <ul>
 <li><strong>放弃本地修改，直接覆盖，这个会重置掉未commit到本地的修改文件，用之前考虑清楚</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard</span><br><span class="line"></span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
+<p>2、清除工作区untracked files</p>
+<ul>
+<li><strong>源码的开发过程中，某一个项目git仓库中经常会出现一些untracked files，这些文件是git仓库没有管理的,需要清理掉。使用git status查看有两个文件没有被git管理</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">Untracked files:</span><br><span class="line">(use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line"></span><br><span class="line">    Test.md</span><br><span class="line">    Test2.md</span><br></pre></td></tr></table></figure></li>
+<li><strong>解决方法：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clean -df //清除当前目录下所有git仓库没有管理的文件或目录</span><br><span class="line">git clean -df 文件路径 //指定清除git仓库中没有管理的文件或目录</span><br></pre></td></tr></table></figure></li>
+<li><strong>清除完成后使用 git status查看,两个untacking file 被删除了：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>3、暂存区回退到工作区</p>
+<ul>
+<li><strong>有的时候我们需要把提交到暂存区的文件回退到工作区中。使用git status查看 Test文件现在存在于暂存区中，我们希望把Test回退到工作区中：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">    (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">    new file:   Test</span><br></pre></td></tr></table></figure></li>
+<li><strong>操作：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git已经智能的提示我们使用git reset HEAD &lt;file&gt;...来让暂存区文件回退到工作区。</span><br><span class="line">git reset HEAD 文件路径 //回退指定的文件到工作区</span><br><span class="line">例如： git reset HEAD Test</span><br></pre></td></tr></table></figure></li>
+<li><strong>再次查看git仓库状态，文件处于工作区了：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">Untracked files:</span><br><span class="line">    (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line"></span><br><span class="line">    Test</span><br></pre></td></tr></table></figure>
+4、打patch</li>
+<li>*<em>团队开发中，自己本地修改了一些代码，还没有验证是否正确，此时不能往git服务器去推送。恰好同事也在跟这个问题，他希望在我的基础上进行追踪，希望我把我已经修改的代码给他。这个时候我可以通过打patch的方式实现。 *</em></li>
+</ul>
+<p><strong>操作：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">生成patch：</span><br><span class="line">1&gt;首先将自己的修改的代码本地进行提交即commit</span><br><span class="line">2&gt;git format-patch &lt;指定的commitId&gt;//注意生成的patch是这个commitId以上的提交</span><br><span class="line"></span><br><span class="line">比如有三个commitId： ac4f6d -- bcef67 -- adfc34</span><br><span class="line">执行git format-patch adfc34 就会生成两个patch</span><br><span class="line">第一个patch是 bcef67 -- adfc34 这两次提交的差异文件</span><br><span class="line">第二个patch是 ac4f6d -- bcef67 这两次提交的差异文件</span><br><span class="line"></span><br><span class="line">所以打patch就是生成提交之间的差异文件</span><br><span class="line"></span><br><span class="line">应用patch:</span><br><span class="line">git am 指定的patch</span><br></pre></td></tr></table></figure>
 
       
 
@@ -415,6 +434,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Element</a>
               </li>
              
@@ -424,10 +447,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">

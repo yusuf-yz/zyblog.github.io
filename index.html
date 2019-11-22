@@ -161,14 +161,13 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Git常用命令与常见问题"><a href="#Git常用命令与常见问题" class="headerlink" title="Git常用命令与常见问题"></a>Git常用命令与常见问题</h3><p>1、vscode 用git 拉取代码，提示：在签出前，请清理存储库工作树</p>
-<p><strong>手动解决</strong><br>    git stash</p>
-<pre><code>git pull
+        <h3 id="Git常用命令与常见问题"><a href="#Git常用命令与常见问题" class="headerlink" title="Git常用命令与常见问题"></a>Git常用命令与常见问题</h3><p>1、vscode 用git 拉取代码，提示：在签出前，请清理存储库工作树<br><strong>手动解决</strong></p>
+<figure class="highlight plain"><figcaption><span>stash</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git pull</span><br><span class="line"></span><br><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
 
-git stash pop</code></pre><p><strong>放弃本地修改，直接覆盖，这个会重置掉未commit到本地的修改文件，用之前考虑清楚</strong></p>
-<pre><code>git reset --hard
 
-git pull</code></pre>
+<p><strong>放弃本地修改，直接覆盖，这个会重置掉未commit到本地的修改文件，用之前考虑清楚</strong></p>
+<figure class="highlight plain"><figcaption><span>reset --hard</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
+
       
 
       

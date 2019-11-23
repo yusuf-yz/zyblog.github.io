@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="我不张杨的博客">
 <meta property="og:description" content="学习原生JavaScript时遇见的一些问题和一些容易被忽略的细节记录。">
 <meta property="og:locale" content="zn-Hans">
-<meta property="og:updated_time" content="2019-11-22T15:47:25.792Z">
+<meta property="og:updated_time" content="2019-11-23T15:18:50.362Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="我不张杨的博客" type="application/atom+xml">
@@ -166,7 +166,7 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        var sourceString = &quot;我是被替换的字符串，是被替换的哦&quot;;</span><br><span class="line">        var replaceString = sourceString.replace(&quot;替换&quot;, &quot;replace&quot;);</span><br><span class="line">        alert(replaceString);  // 我是被replace的字符串，是被替换的哦 </span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <p><strong>如果要实现将匹配到的所有字符串都替换，可以使用replace(searchRegexp,replaceValue)的正则表达式方式来实现。</strong><br><em>例如：</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        var sourceString = &quot;我是被替换的字符串，是被替换的哦&quot;;</span><br><span class="line">        var replaceString = sourceString.replace(/替换/gm, &quot;replace&quot;); //sourceString.replace(new RegExp(&quot;替换&quot;, &quot;gm&quot;), &quot;replace&quot;);</span><br><span class="line">        alert(replaceString);   // 我是被replace的字符串，是被replace的哦</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
-<p>3、全局变量与局部变量<br><strong>全局变量：*</strong>在函数外声明的变量是全局变量，网页上的所有脚本和函数都能访问它。生命周期是从被声明的时间开始，页面关闭后被删除。*<br><strong>局部变量：*</strong>在 函数内部声明的变量（使用 var）是局部变量，所以只能在函数内部访问它。（该变量的作用域是局部的）。生命周期是从被声明的时间开始，函数运行以后被删除。*<br><strong>注：如果把值赋给尚未声明的变量，该变量将被自动作为全局变量声明。</strong><br><em>例如：</em></p>
+<p>3、全局变量与局部变量<br><strong>全局变量：</strong> <em>在函数外声明的变量是全局变量，网页上的所有脚本和函数都能访问它。生命周期是从被声明的时间开始，页面关闭后被删除。</em><br><strong>局部变量：</strong> <em>在 函数内部声明的变量（使用 var）是局部变量，所以只能在函数内部访问它。（该变量的作用域是局部的）。生命周期是从被声明的时间开始，函数运行以后被删除。</em><br><strong>注：如果把值赋给尚未声明的变量，该变量将被自动作为全局变量声明。</strong><br><em>例如：</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name = &quot;Jack&quot;;</span><br></pre></td></tr></table></figure>
 <p><em>将声明一个全局变量 name，即使它在函数内执行。</em><br>4、onload 事件可用于检测访问者的浏览器类型和浏览器版本，并基于这些信息来加载网页的正确版本。onload 和 onunload 事件可用于处理 cookie。<br><em>例如：</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body οnlοad=&quot;checkCookies()&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">function checkCookies()</span><br><span class="line">&#123;</span><br><span class="line">if (navigator.cookieEnabled==true)</span><br><span class="line">    &#123;</span><br><span class="line">    alert(&quot;已启用 cookie&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">else</span><br><span class="line">    &#123;</span><br><span class="line">    alert(&quot;未启用 cookie&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;p&gt;提示框会告诉你，浏览器是否已启用 cookie。&lt;/p&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
@@ -427,11 +427,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">H5</a>
+                <a href="javascript:void(0)" class="js-tag color3">Element</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -439,15 +439,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">H5</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Element</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
             
             <div class="clearfix"></div>

@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="我不张杨的博客">
 <meta property="og:description" content="一些git常用到的命令与出现的常见问题的解决方法">
 <meta property="og:locale" content="zn-Hans">
-<meta property="og:updated_time" content="2019-11-22T13:03:42.000Z">
+<meta property="og:updated_time" content="2019-11-27T12:15:57.027Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="我不张杨的博客" type="application/atom+xml">
@@ -191,6 +191,8 @@
 </ul>
 <p><strong>操作：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">生成patch：</span><br><span class="line">1&gt;首先将自己的修改的代码本地进行提交即commit</span><br><span class="line">2&gt;git format-patch &lt;指定的commitId&gt;//注意生成的patch是这个commitId以上的提交</span><br><span class="line"></span><br><span class="line">比如有三个commitId： ac4f6d -- bcef67 -- adfc34</span><br><span class="line">执行git format-patch adfc34 就会生成两个patch</span><br><span class="line">第一个patch是 bcef67 -- adfc34 这两次提交的差异文件</span><br><span class="line">第二个patch是 ac4f6d -- bcef67 这两次提交的差异文件</span><br><span class="line"></span><br><span class="line">所以打patch就是生成提交之间的差异文件</span><br><span class="line"></span><br><span class="line">应用patch:</span><br><span class="line">git am 指定的patch</span><br></pre></td></tr></table></figure>
+
+<p><strong>一个正在成长的前端小白~</strong></p>
 
       
 
@@ -443,14 +445,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">H5</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Element</a>
               </li>
              
@@ -463,11 +457,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">H5</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">echarts</a>
               </li>
             
             <div class="clearfix"></div>

@@ -141,6 +141,119 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-js-judge-type" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/28/js-judge-type.html">js判断类型为数字的方法汇总</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/28/js-judge-type.html" class="archive-article-date">
+  	<time datetime="2019-11-28T12:11:08.758Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="js判断类型为数字的方法汇总"><a href="#js判断类型为数字的方法汇总" class="headerlink" title="js判断类型为数字的方法汇总"></a>js判断类型为数字的方法汇总</h3><h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><p><em>判断类型时，最最容易想到的就是typeof，但是如果通过typeof来判断是否为number类型，如果被判断的是NaN返回的结果也会是number，因此我们还需要用isNaN来排除NaN的情况。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isNumber (obj) &#123; </span><br><span class="line">    return typeof obj === &apos;number&apos; &amp;&amp; !isNaN(obj) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>此外isNaN()相比Number.isNaN()会把被判断的参数强制转换成数字再进行判断，而Number.isNaN()只有在参数是真正的数字类型，且值为NaN时才会返回true。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Number.isNaN(NaN)         // true</span><br><span class="line">Number.isNaN(Number.NaN)  // true</span><br><span class="line">Number.isNaN(0 / 0)       // true</span><br><span class="line">    </span><br><span class="line">Number.isNaN(null)        // false</span><br><span class="line">Number.isNaN(37)          // false</span><br><span class="line">Number.isNaN(&quot;37&quot;)        // false</span><br><span class="line"> </span><br><span class="line">Number.isNaN(&quot;NaN&quot;)       // false 不会隐式转换</span><br><span class="line">window.isNaN(&apos;NaN&apos;)       // true 会隐式转换</span><br></pre></td></tr></table></figure>
+<h5 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h5><p><em>isNaN(obj)   等价于isFinite()。Infinity在js表示数字的无穷大,判断是否可用做数字的最佳方法则是isFinite()，因为该方法会筛除掉NaN和Infinity两个关键字。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isNumber (obj) &#123; </span><br><span class="line">    return typeof obj === &apos;number&apos; &amp;&amp; isFinite(obj)     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>同样的， Number.isFinite()方法用来检测传入的参数是否是一个有穷数（finite number）。 和全局的 isFinite() 函数相比，这个方法不会强制将一个非数值的参数转换成数值，这就意味着，只有数值类型的值，且是有穷的（finite），才返回 true。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Number.isFinite(Infinity)  // false</span><br><span class="line">Number.isFinite(NaN)       // false</span><br><span class="line">Number.isFinite(-Infinity) // false</span><br><span class="line"> </span><br><span class="line">Number.isFinite(0)         // true</span><br><span class="line">Number.isFinite(2e64)      // true</span><br><span class="line"> </span><br><span class="line">Number.isFinite(&apos;0&apos;)       // false, 全局函数 isFinite(&apos;0&apos;) 会返回 true</span><br></pre></td></tr></table></figure>
+
+<h5 id="方法三："><a href="#方法三：" class="headerlink" title="方法三："></a>方法三：</h5><p><em>用Object.prototype.toString来实现，只是代码量要稍微大一点。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isNumber (obj) &#123; </span><br><span class="line">    return Object.prototype.toString.call(obj) === &apos;[object Number]&apos; &amp;&amp; !isNaN(obj) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>或者</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isNumber (obj) &#123;</span><br><span class="line">    return Object.prototype.toString.call(obj) === &apos;[object Number]&apos; &amp;&amp;  isFinite(obj)     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>多扯一点，toString()方法返回一个表示该对象的字符串。默认情况下，toString()方法被每个Object对象继承。如果此方法在自定义对象中未被覆盖，toString()返回 “[object type]” ，其中type是对象的类型。</em><br><em>但是，待检测对象也许会重写toString()方法，这时就无法检测toString来判断类型。所以要保证能够检测类型，需要调用Object.prototype.toString来进行判断。如下：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">let X = function (x) &#123;</span><br><span class="line">    this.name = x</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">let x =  new X()</span><br><span class="line"> </span><br><span class="line">x.toString() // &quot;[object,Object]&quot;  使用继承的toString</span><br><span class="line">Object.prototype.toString.call(x) // &quot;[object,Object]&quot;</span><br><span class="line"> </span><br><span class="line">X.prototype.toString = function () &#123; // 重写父类的toString方法</span><br><span class="line">    return &apos;not type&apos;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">x.toString() // &quot;not type&quot;   使用重写后的toString，就不再返回类型</span><br><span class="line"> </span><br><span class="line">Object.prototype.toString.call(x) // &quot;[object,Object]&quot;</span><br></pre></td></tr></table></figure>
+<p><em>但是返回的” [ object, Type]” 不太好分辨，可以进行特殊的处理，直接返回类型名称。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 获取类型</span><br><span class="line">function getType (target)&#123;</span><br><span class="line">    let types = &#123;&#125;</span><br><span class="line">    let temp = Object.prototype.toString.call(target)</span><br><span class="line">    //types映射类型</span><br><span class="line">    &apos;Boolean Number String Null Undefined Symbol Function Array Date RegExp Object Error NodeList&apos;.split(&apos; &apos;).map(value =&gt; &#123;</span><br><span class="line">        types[`[object $&#123;value&#125;]`] = value.toLowerCase()</span><br><span class="line">    &#125;)</span><br><span class="line"> </span><br><span class="line">    if (types[temp]) &#123;</span><br><span class="line">        return types[temp]</span><br><span class="line">    &#125; else if (temp.indexOf(&apos;HTML&apos;) !== -1) &#123; // 判断是否为DOM元素</span><br><span class="line">        return &apos;element&apos; </span><br><span class="line">    &#125; else &#123;</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">// 测试</span><br><span class="line"> </span><br><span class="line">getType(1) //  &quot;number&quot;</span><br><span class="line">getType(Symbol(1)) // &quot;symbol&quot;</span><br><span class="line">getType([]) // &quot;array&quot;</span><br><span class="line">getType(&#123;&#125;) // &quot;object&quot;</span><br><span class="line">getType(document.querySelectorAll(&apos;div&apos;)) // &quot;nodelist&quot;</span><br></pre></td></tr></table></figure>
+<p><em>这样就可以便捷的获取到类型名称了。</em><br><em>这里有提到了原型链，可以参看一篇写的很通熟易懂的博文，放上链接<a href="https://www.jianshu.com/p/686b61c4a43d" target="_blank" rel="noopener">原型链</a>。</em></p>
+<h5 id="方法四："><a href="#方法四：" class="headerlink" title="方法四："></a>方法四：</h5><p><em>据说这个方法是世界上最短的数字判断代码。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isNumber (obj) &#123; </span><br><span class="line">    return obj === +obj </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>下面是通过该方法进行的延伸。</em><br><em>1、判断字符串 ：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isString (obj) &#123; </span><br><span class="line">    return obj === obj+&apos;&apos; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>2、判断布尔类型：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isBoolean (obj) &#123; </span><br><span class="line">    return obj === !!obj </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="方法五："><a href="#方法五：" class="headerlink" title="方法五："></a>方法五：</h5><p><em>用正则来实现，这也是我们最常用的方式。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function isNumber (obj) &#123;</span><br><span class="line">  let reg = /^[0-9]+.?[0-9]*$/</span><br><span class="line">  if (reg.test(obj)) &#123;</span><br><span class="line">    return true</span><br><span class="line">  &#125;</span><br><span class="line">  return false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>一个正在成长的前端小白~</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/JavaScript//" class="article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/28/js-judge-type.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-echarts-bar" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1126,6 +1239,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">H5</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">echarts</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Element</a>
               </li>
              
@@ -1138,7 +1259,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">H5</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1146,15 +1267,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">echarts</a>
               </li>
             
             <div class="clearfix"></div>

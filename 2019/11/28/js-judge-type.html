@@ -6,25 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Git Clone Appear Mistake | 我不张杨的博客</title>
+  <title>js判断类型为数字的方法汇总 | 我不张杨的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="git clone远程仓库内容时报错">
-<meta name="keywords" content="git">
+  <meta name="description" content="js判断参数类型为数字的一些方法汇总">
+<meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git Clone Appear Mistake">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;24&#x2F;git-clone-mistake.html">
+<meta property="og:title" content="js判断类型为数字的方法汇总">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;28&#x2F;js-judge-type.html">
 <meta property="og:site_name" content="我不张杨的博客">
-<meta property="og:description" content="git clone远程仓库内容时报错">
+<meta property="og:description" content="js判断参数类型为数字的一些方法汇总">
 <meta property="og:locale" content="zn-Hans">
-<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191124203544418.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191124203612960.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191124203736355.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;201911242038149.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191124203920429.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70">
-<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191124204035909.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-11-27T12:16:04.598Z">
+<meta property="og:updated_time" content="2019-11-28T12:31:23.955Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191124203544418.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="我不张杨的博客" type="application/atom+xml">
   
@@ -148,34 +141,54 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-git-clone-mistake" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-js-judge-type" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Git Clone Appear Mistake
+      js判断类型为数字的方法汇总
     </h1>
   
 
         
-        <a href="/2019/11/24/git-clone-mistake.html" class="archive-article-date">
-  	<time datetime="2019-11-24T12:44:38.220Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
+        <a href="/2019/11/28/js-judge-type.html" class="archive-article-date">
+  	<time datetime="2019-11-28T12:11:08.758Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-28</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="The-authenticity-of-host-‘github-com-0-0-0-0-（里面是你的ip地址）’-can’t-be-established"><a href="#The-authenticity-of-host-‘github-com-0-0-0-0-（里面是你的ip地址）’-can’t-be-established" class="headerlink" title="The authenticity of host ‘github.com (0.0.0.0)（里面是你的ip地址）’ can’t be established."></a>The authenticity of host ‘github.com (0.0.0.0)（里面是你的ip地址）’ can’t be established.</h3><h6 id="在git-clone项目时出现过两次这个问题，第一次是在自己电脑上把本地项目推送到远程后加了ssh，然后在公司电脑去git-clone时出现了这个问题，第二次是自己电脑重装系统后，再去git-clone时出现了这个问题。究其原因，都是因为本地仓库和远程的ssh不匹配。"><a href="#在git-clone项目时出现过两次这个问题，第一次是在自己电脑上把本地项目推送到远程后加了ssh，然后在公司电脑去git-clone时出现了这个问题，第二次是自己电脑重装系统后，再去git-clone时出现了这个问题。究其原因，都是因为本地仓库和远程的ssh不匹配。" class="headerlink" title="在git clone项目时出现过两次这个问题，第一次是在自己电脑上把本地项目推送到远程后加了ssh，然后在公司电脑去git clone时出现了这个问题，第二次是自己电脑重装系统后，再去git clone时出现了这个问题。究其原因，都是因为本地仓库和远程的ssh不匹配。"></a>在git clone项目时出现过两次这个问题，第一次是在自己电脑上把本地项目推送到远程后加了ssh，然后在公司电脑去git clone时出现了这个问题，第二次是自己电脑重装系统后，再去git clone时出现了这个问题。究其原因，都是因为本地仓库和远程的ssh不匹配。</h6><p><strong>解决办法：</strong></p>
-<p>1、当出现Are you sure you want to continue connecting (yes/no)?时，选择yes<br><img src="https://img-blog.csdnimg.cn/20191124203544418.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="First Step"></p>
-<p>2、ls -al ~/.ssh<br><img src="https://img-blog.csdnimg.cn/20191124203612960.png" alt="Second Step"></p>
-<p>3、ssh-keygen -t rsa -C “你的github用户名”，然后按三次回车<br><img src="https://img-blog.csdnimg.cn/20191124203736355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="Third Step"></p>
-<p>4、cat ~/.ssh/id_rsa.pub生成新的SSH<br><img src="https://img-blog.csdnimg.cn/201911242038149.png" alt="Fourth Step"></p>
-<p>5、登陆github,点击头像-settings-new SSH,复制新生成的SSH<br><img src="https://img-blog.csdnimg.cn/20191124203920429.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="Fifty Step"></p>
-<p><img src="https://img-blog.csdnimg.cn/20191124204035909.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="Fifty Step"></p>
-<p>6、可以正常clone</p>
+        <h3 id="js判断类型为数字的方法汇总"><a href="#js判断类型为数字的方法汇总" class="headerlink" title="js判断类型为数字的方法汇总"></a>js判断类型为数字的方法汇总</h3><h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><p><em>判断类型时，最最容易想到的就是typeof，但是如果通过typeof来判断是否为number类型，如果被判断的是NaN返回的结果也会是number，因此我们还需要用isNaN来排除NaN的情况。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isNumber (obj) &#123; </span><br><span class="line">    return typeof obj === &apos;number&apos; &amp;&amp; !isNaN(obj) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>此外isNaN()相比Number.isNaN()会把被判断的参数强制转换成数字再进行判断，而Number.isNaN()只有在参数是真正的数字类型，且值为NaN时才会返回true。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Number.isNaN(NaN)         // true</span><br><span class="line">Number.isNaN(Number.NaN)  // true</span><br><span class="line">Number.isNaN(0 / 0)       // true</span><br><span class="line">    </span><br><span class="line">Number.isNaN(null)        // false</span><br><span class="line">Number.isNaN(37)          // false</span><br><span class="line">Number.isNaN(&quot;37&quot;)        // false</span><br><span class="line"> </span><br><span class="line">Number.isNaN(&quot;NaN&quot;)       // false 不会隐式转换</span><br><span class="line">window.isNaN(&apos;NaN&apos;)       // true 会隐式转换</span><br></pre></td></tr></table></figure>
+<h5 id="方法二："><a href="#方法二：" class="headerlink" title="方法二："></a>方法二：</h5><p><em>isNaN(obj)   等价于isFinite()。Infinity在js表示数字的无穷大,判断是否可用做数字的最佳方法则是isFinite()，因为该方法会筛除掉NaN和Infinity两个关键字。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isNumber (obj) &#123; </span><br><span class="line">    return typeof obj === &apos;number&apos; &amp;&amp; isFinite(obj)     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>同样的， Number.isFinite()方法用来检测传入的参数是否是一个有穷数（finite number）。 和全局的 isFinite() 函数相比，这个方法不会强制将一个非数值的参数转换成数值，这就意味着，只有数值类型的值，且是有穷的（finite），才返回 true。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Number.isFinite(Infinity)  // false</span><br><span class="line">Number.isFinite(NaN)       // false</span><br><span class="line">Number.isFinite(-Infinity) // false</span><br><span class="line"> </span><br><span class="line">Number.isFinite(0)         // true</span><br><span class="line">Number.isFinite(2e64)      // true</span><br><span class="line"> </span><br><span class="line">Number.isFinite(&apos;0&apos;)       // false, 全局函数 isFinite(&apos;0&apos;) 会返回 true</span><br></pre></td></tr></table></figure>
+
+<h5 id="方法三："><a href="#方法三：" class="headerlink" title="方法三："></a>方法三：</h5><p><em>用Object.prototype.toString来实现，只是代码量要稍微大一点。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isNumber (obj) &#123; </span><br><span class="line">    return Object.prototype.toString.call(obj) === &apos;[object Number]&apos; &amp;&amp; !isNaN(obj) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>或者</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isNumber (obj) &#123;</span><br><span class="line">    return Object.prototype.toString.call(obj) === &apos;[object Number]&apos; &amp;&amp;  isFinite(obj)     </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>多扯一点，toString()方法返回一个表示该对象的字符串。默认情况下，toString()方法被每个Object对象继承。如果此方法在自定义对象中未被覆盖，toString()返回 “[object type]” ，其中type是对象的类型。</em><br><em>但是，待检测对象也许会重写toString()方法，这时就无法检测toString来判断类型。所以要保证能够检测类型，需要调用Object.prototype.toString来进行判断。如下：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">let X = function (x) &#123;</span><br><span class="line">    this.name = x</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">let x =  new X()</span><br><span class="line"> </span><br><span class="line">x.toString() // &quot;[object,Object]&quot;  使用继承的toString</span><br><span class="line">Object.prototype.toString.call(x) // &quot;[object,Object]&quot;</span><br><span class="line"> </span><br><span class="line">X.prototype.toString = function () &#123; // 重写父类的toString方法</span><br><span class="line">    return &apos;not type&apos;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">x.toString() // &quot;not type&quot;   使用重写后的toString，就不再返回类型</span><br><span class="line"> </span><br><span class="line">Object.prototype.toString.call(x) // &quot;[object,Object]&quot;</span><br></pre></td></tr></table></figure>
+<p><em>但是返回的” [ object, Type]” 不太好分辨，可以进行特殊的处理，直接返回类型名称。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">// 获取类型</span><br><span class="line">function getType (target)&#123;</span><br><span class="line">    let types = &#123;&#125;</span><br><span class="line">    let temp = Object.prototype.toString.call(target)</span><br><span class="line">    //types映射类型</span><br><span class="line">    &apos;Boolean Number String Null Undefined Symbol Function Array Date RegExp Object Error NodeList&apos;.split(&apos; &apos;).map(value =&gt; &#123;</span><br><span class="line">        types[`[object $&#123;value&#125;]`] = value.toLowerCase()</span><br><span class="line">    &#125;)</span><br><span class="line"> </span><br><span class="line">    if (types[temp]) &#123;</span><br><span class="line">        return types[temp]</span><br><span class="line">    &#125; else if (temp.indexOf(&apos;HTML&apos;) !== -1) &#123; // 判断是否为DOM元素</span><br><span class="line">        return &apos;element&apos; </span><br><span class="line">    &#125; else &#123;</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">// 测试</span><br><span class="line"> </span><br><span class="line">getType(1) //  &quot;number&quot;</span><br><span class="line">getType(Symbol(1)) // &quot;symbol&quot;</span><br><span class="line">getType([]) // &quot;array&quot;</span><br><span class="line">getType(&#123;&#125;) // &quot;object&quot;</span><br><span class="line">getType(document.querySelectorAll(&apos;div&apos;)) // &quot;nodelist&quot;</span><br></pre></td></tr></table></figure>
+<p><em>这样就可以便捷的获取到类型名称了。</em><br><em>这里有提到了原型链，可以参看一篇写的很通熟易懂的博文，放上链接<a href="https://www.jianshu.com/p/686b61c4a43d" target="_blank" rel="noopener">原型链</a>。</em></p>
+<h5 id="方法四："><a href="#方法四：" class="headerlink" title="方法四："></a>方法四：</h5><p><em>据说这个方法是世界上最短的数字判断代码。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isNumber (obj) &#123; </span><br><span class="line">    return obj === +obj </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>下面是通过该方法进行的延伸。</em><br><em>1、判断字符串 ：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isString (obj) &#123; </span><br><span class="line">    return obj === obj+&apos;&apos; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>2、判断布尔类型：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isBoolean (obj) &#123; </span><br><span class="line">    return obj === !!obj </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="方法五："><a href="#方法五：" class="headerlink" title="方法五："></a>方法五：</h5><p><em>用正则来实现，这也是我们最常用的方式。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function isNumber (obj) &#123;</span><br><span class="line">  let reg = /^[0-9]+.?[0-9]*$/</span><br><span class="line">  if (reg.test(obj)) &#123;</span><br><span class="line">    return true</span><br><span class="line">  &#125;</span><br><span class="line">  return false</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><strong>一个正在成长的前端小白~</strong></p>
 
       
@@ -211,7 +224,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
@@ -223,7 +236,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/git//" class="article-tag-list-link color4">git</a>
+        			<a href="/categories/JavaScript//" class="article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
@@ -278,7 +291,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/24/git-clone-mistake.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/28/js-judge-type.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -292,18 +305,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/11/24/hexo-generate-mistake.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Hexo Generate Appear Mistake
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/11/23/javascript-common-mistakes.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">原生JS容易忽略的一些细节记录</div>
+    <a href="/2019/11/27/echarts-bar.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">如何让echarts中柱状图的柱子与坐标轴有一定的间距</div>
       <i class="icon-circle-right"></i>
     </a>
   

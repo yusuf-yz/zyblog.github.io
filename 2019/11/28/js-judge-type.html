@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="我不张杨的博客">
 <meta property="og:description" content="js判断参数类型为数字的一些方法汇总">
 <meta property="og:locale" content="zn-Hans">
-<meta property="og:updated_time" content="2019-11-28T12:31:23.955Z">
+<meta property="og:updated_time" content="2019-11-28T12:35:12.265Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="我不张杨的博客" type="application/atom+xml">
@@ -161,7 +161,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="js判断类型为数字的方法汇总"><a href="#js判断类型为数字的方法汇总" class="headerlink" title="js判断类型为数字的方法汇总"></a>js判断类型为数字的方法汇总</h3><h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><p><em>判断类型时，最最容易想到的就是typeof，但是如果通过typeof来判断是否为number类型，如果被判断的是NaN返回的结果也会是number，因此我们还需要用isNaN来排除NaN的情况。</em></p>
+        <h5 id="方法一："><a href="#方法一：" class="headerlink" title="方法一："></a>方法一：</h5><p><em>判断类型时，最最容易想到的就是typeof，但是如果通过typeof来判断是否为number类型，如果被判断的是NaN返回的结果也会是number，因此我们还需要用isNaN来排除NaN的情况。</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function isNumber (obj) &#123; </span><br><span class="line">    return typeof obj === &apos;number&apos; &amp;&amp; !isNaN(obj) </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><em>此外isNaN()相比Number.isNaN()会把被判断的参数强制转换成数字再进行判断，而Number.isNaN()只有在参数是真正的数字类型，且值为NaN时才会返回true。</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Number.isNaN(NaN)         // true</span><br><span class="line">Number.isNaN(Number.NaN)  // true</span><br><span class="line">Number.isNaN(0 / 0)       // true</span><br><span class="line">    </span><br><span class="line">Number.isNaN(null)        // false</span><br><span class="line">Number.isNaN(37)          // false</span><br><span class="line">Number.isNaN(&quot;37&quot;)        // false</span><br><span class="line"> </span><br><span class="line">Number.isNaN(&quot;NaN&quot;)       // false 不会隐式转换</span><br><span class="line">window.isNaN(&apos;NaN&apos;)       // true 会隐式转换</span><br></pre></td></tr></table></figure>
@@ -307,7 +307,7 @@
   
   
     <a href="/2019/11/27/echarts-bar.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">如何让echarts中柱状图的柱子与坐标轴有一定的间距</div>
+      <div class="article-nav-title">实现echarts中柱状图的柱子与坐标轴有一定的间距，效果如下：</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -437,15 +437,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">echarts</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Element</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -457,11 +453,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+                <a href="javascript:void(0)" class="js-tag color3">Element</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
             
             <div class="clearfix"></div>

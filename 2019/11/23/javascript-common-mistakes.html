@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="我不张杨的博客">
 <meta property="og:description" content="学习原生JavaScript时遇见的一些问题和一些容易被忽略的细节记录。">
 <meta property="og:locale" content="zn-Hans">
-<meta property="og:updated_time" content="2019-11-27T12:16:34.738Z">
+<meta property="og:updated_time" content="2019-11-28T12:36:53.268Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="我不张杨的博客" type="application/atom+xml">
@@ -161,7 +161,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="JavaScript之一步一坑，一坑一成长"><a href="#JavaScript之一步一坑，一坑一成长" class="headerlink" title="JavaScript之一步一坑，一坑一成长"></a>JavaScript之一步一坑，一坑一成长</h3><p>1、Undefined和Null的区别：null是一个表示”无”的对象，转为数值时为0；undefined是一个表示”无”的原始值，转为数值时为NaN。<br><strong>null表示”没有对象”，即该处不应该有值。典型用法是：①作为函数的参数，表示该函数的参数不是对象。②作为对象原型链的终点。undefined表示”缺少值”，就是此处应该有一个值，但是还没有定义。典型用法是：①变量被申明了，但没有赋值时，就等于undefined。②调用函数时，应该提供的参数没有提供，该参数等于undefined。③对象没有赋值的属性，该属性的值为undefined。④函数没有返回值时，默认返回为undefined。</strong><br><em>简而言之：undefined是一个对象被声明但未初始化的（未定义的）。null是用来存放一个空的对象的，也就是被声明而且已经初始化了。</em></p>
+        <p>1、Undefined和Null的区别：null是一个表示”无”的对象，转为数值时为0；undefined是一个表示”无”的原始值，转为数值时为NaN。<br><strong>null表示”没有对象”，即该处不应该有值。典型用法是：①作为函数的参数，表示该函数的参数不是对象。②作为对象原型链的终点。undefined表示”缺少值”，就是此处应该有一个值，但是还没有定义。典型用法是：①变量被申明了，但没有赋值时，就等于undefined。②调用函数时，应该提供的参数没有提供，该参数等于undefined。③对象没有赋值的属性，该属性的值为undefined。④函数没有返回值时，默认返回为undefined。</strong><br><em>简而言之：undefined是一个对象被声明但未初始化的（未定义的）。null是用来存放一个空的对象的，也就是被声明而且已经初始化了。</em></p>
 <p>2、replace(searchValue,replaceValue)：以searchValue为匹配对象，将匹配到的第一个字符串替换为replaceValue。<br><em>例如：</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line">&lt;body&gt;</span><br><span class="line"></span><br><span class="line">&lt;script type=&quot;text/javascript&quot;&gt;</span><br><span class="line">        var sourceString = &quot;我是被替换的字符串，是被替换的哦&quot;;</span><br><span class="line">        var replaceString = sourceString.replace(&quot;替换&quot;, &quot;replace&quot;);</span><br><span class="line">        alert(replaceString);  // 我是被replace的字符串，是被替换的哦 </span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
 <p><strong>如果要实现将匹配到的所有字符串都替换，可以使用replace(searchRegexp,replaceValue)的正则表达式方式来实现。</strong><br><em>例如：</em></p>
@@ -297,14 +297,14 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          Git Clone Appear Mistake
+          The authenticity of host &#39;github.com (0.0.0.0)（里面是你的ip地址）&#39; can&#39;t be established.
         
       </div>
     </a>
   
   
     <a href="/2019/11/23/H5.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">H5</div>
+      <div class="article-nav-title">H5的一些新特性</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -434,15 +434,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">echarts</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Element</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -454,11 +450,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+                <a href="javascript:void(0)" class="js-tag color3">Element</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
             
             <div class="clearfix"></div>

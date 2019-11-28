@@ -6,18 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>如何让echarts中柱状图的柱子与坐标轴有一定的间距 | 我不张杨的博客</title>
+  <title>实现echarts中柱状图的柱子与坐标轴有一定的间距，效果如下： | 我不张杨的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="实现echarts中柱状图的柱子与坐标轴有一定的间距">
 <meta name="keywords" content="echarts">
 <meta property="og:type" content="article">
-<meta property="og:title" content="如何让echarts中柱状图的柱子与坐标轴有一定的间距">
+<meta property="og:title" content="实现echarts中柱状图的柱子与坐标轴有一定的间距，效果如下：">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;27&#x2F;echarts-bar.html">
 <meta property="og:site_name" content="我不张杨的博客">
 <meta property="og:description" content="实现echarts中柱状图的柱子与坐标轴有一定的间距">
 <meta property="og:locale" content="zn-Hans">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191127100715381.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2019-11-27T12:15:20.661Z">
+<meta property="og:updated_time" content="2019-11-28T12:37:35.608Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191127100715381.png?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70">
   
@@ -150,7 +150,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      如何让echarts中柱状图的柱子与坐标轴有一定的间距
+      实现echarts中柱状图的柱子与坐标轴有一定的间距，效果如下：
     </h1>
   
 
@@ -163,7 +163,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="实现echarts中柱状图的柱子与坐标轴有一定的间距，效果如下："><a href="#实现echarts中柱状图的柱子与坐标轴有一定的间距，效果如下：" class="headerlink" title="实现echarts中柱状图的柱子与坐标轴有一定的间距，效果如下："></a>实现echarts中柱状图的柱子与坐标轴有一定的间距，效果如下：</h3><p><img src="https://img-blog.csdnimg.cn/20191127100715381.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="result"></p>
+        <p><img src="https://img-blog.csdnimg.cn/20191127100715381.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="result"></p>
 <p><em>因为第一次用echarts，一开始下意识想官方应该有这个属性，就一直在柱状图的属性中反复找，后面实在找不到类似的属性，索性就不找了。既然此路不通，那就换一条路试试。但是不管怎么说，就算没有这个属性，效果还是要想办法实现的，要不然产品和测试那里怎么过得去嘛。</em></p>
 <p><em>虽说查了很多遍的官方文档也没找到，但是也并不是没有收获，在看文档的过程发现柱状图有一个stack的属性，这个属性按我的理解就是，在一个容器中设置两个或两个以上的柱状图时，在每个柱状图的series中都加上stack属性，且它们的值都设置成一样的，这个值可以自己随便自定义，接受的类型为string，如何两个柱状图的stack属性值是一样的话，那么这两个柱状图的柱子的值就会相加，显示的还是一个柱子。想到这里，好像找到了一点感觉，如果我们建立两个柱状图，同时把它们的stack属性设置成一样的值，然后把其中一个柱状图的所有效果取消掉，柱子的颜色设置成透明，data根据整个柱状图的坐标轴刻度的大小设置成合适的，比如我例子中X轴的每个刻度是200000，Y轴共有9类，那么我就可以把所有data设置成[25000, 25000, 25000, 25000, 25000, 25000, 25000, 25000, 25000]，这样柱子距离Y轴就是0.125个X轴的刻度长，这个间距主要还是要看你数值轴的一个刻度大小，然后进行自定义设定。ok，又说的有点偏了，回到刚才，这样设置完后，就可以把这个柱状图当成一个辅助的功能，在另一个柱状图中的data写我们需要显示的数据。</em></p>
 <p><em>让柱子与坐标轴有一定间距的效果就实现了，当然，我例子里做的是X轴当数值轴，即做刻度，可以根据需求不同进行调整，这个都是小问题。</em></p>
@@ -298,7 +298,7 @@
   
   
     <a href="/2019/11/26/split-task-dialog.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">自定义拆分弹框组件</div>
+      <div class="article-nav-title">Element弹框+表单实现自定义把总任务拆分若干子任务</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -428,15 +428,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">echarts</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Element</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -448,11 +444,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+                <a href="javascript:void(0)" class="js-tag color3">Element</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
             
             <div class="clearfix"></div>

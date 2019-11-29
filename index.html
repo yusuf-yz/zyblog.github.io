@@ -141,6 +141,113 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-component-communication" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/30/component-communication.html">Vue通过总线实现任意两个组件的通信</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/30/component-communication.html" class="archive-article-date">
+  	<time datetime="2019-11-29T16:33:30.968Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-30</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>在写Vue的项目时，我们在一些组件中需要与其他组件进行通信，当然这里的通信不是父子之间的通信，首先，毋庸置疑的是肯定可以通过Vuex来实现的，但是有时候整体项目不是很庞大，总体组件也不是很复杂，用Vuex有点杀鸡用牛刀了，那么这时候我们就可以借助一个空的Vue实例作为中央事件总线来实现任意两个组件之间的通信。</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;div id=&quot;app&quot; style=&quot;text-align: center; margin-top: 100px;&quot;&gt;</span><br><span class="line">  &lt;one&gt;&lt;/one&gt;</span><br><span class="line">  &lt;two&gt;&lt;/two&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">let bus = new Vue(&#123;&#125;) // 为了方便在一个组件中使用bus，在实际的运用中一般会新建一个bus.js</span><br><span class="line"> </span><br><span class="line">Vue.component(&apos;one&apos;, &#123;</span><br><span class="line">  template: `&lt;div&gt;&#123;&#123;msg&#125;&#125;&lt;/div&gt;`,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &apos;Hello zy&apos;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  created () &#123;</span><br><span class="line">    bus.$on(&apos;setMsg&apos;, val =&gt; &#123;</span><br><span class="line">      this.msg = val</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line">Vue.component(&apos;two&apos;, &#123;</span><br><span class="line">  template: `&lt;button @click=&quot;sendMsg&quot;&gt;change msg&lt;/button&gt;`,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    sendMsg () &#123;</span><br><span class="line">      bus.$emit(&apos;setMsg&apos;, &apos;wo bu zy&apos;)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line">new Vue(&#123;</span><br><span class="line">  el: &apos;#app&apos;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>实际效果：<br><img src="https://img-blog.csdnimg.cn/20191130001130272.gif" alt="result"></p>
+<p><em>在实际项目运用中，我们一般会将bus单独抽离出来:</em></p>
+<p><strong>bus.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">const bus= new Vue()</span><br><span class="line">export default bus</span><br></pre></td></tr></table></figure>
+<p><em>然后在需要调用的组件中先引用bus.js</em><br><em>组件one</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import bus from &apos;bus&apos;</span><br><span class="line"> </span><br><span class="line">export default &#123;</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &apos;&apos;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    bus.$emit(&apos;msg&apos;, &apos;hi zy&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>组件two</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">import bus from &apos;bus&apos;</span><br><span class="line"> </span><br><span class="line">export default &#123;</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      msg: &apos;&apos;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    bus.$on(&apos;msg&apos;, &apos;wo bu zy&apos;)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>但是这种引入方式，经过webpack打包后可能会出现bus局部作用域的情况，即引用的是两个不同的bus，导致不能正常通信。</em><br><em>我们其实也可以直接在main.js中注册bus</em><br><strong>main.js</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">import bus from &apos;bus&apos;</span><br><span class="line"> </span><br><span class="line">Vue.use(Vue)</span><br><span class="line">Vue.use(bus)</span><br><span class="line"> </span><br><span class="line">new Vue (&#123;</span><br><span class="line">  el:&apos;#app&apos;　　</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><em>然后在需要进行通信的两个组件中通过this.$bus.$emit()和this.$bus.$on()来调用</em><br><em>组件one</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">created () &#123;</span><br><span class="line">  this.$bus.$emit(&apos;updateData&apos;, &#123;msg: &apos;hi zy&apos;, value: 666&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><em>组件two</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mounted () &#123;</span><br><span class="line">  this.$bus.$on(&apos;updateData&apos;, obj =&gt; &#123;</span><br><span class="line">    this.msg = obj.msg</span><br><span class="line">    this.value = obj.value</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>注意：注册的总线事件要在组件销毁时卸载，否则会多次挂载，造成触发一次但多个响应的情况。</strong><br><em>在组件one中</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">beforeDestroy () &#123;</span><br><span class="line">  this.$bus.$off(&apos;updateData&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>一个正在成长的前端小白~</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Vue//" class="article-tag-list-link color4">Vue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/30/component-communication.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-js-judge-type" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1047,105 +1154,10 @@
 
 
   
-    <article id="post-element-forminlinedropdown" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/22/element-forminlinedropdown.html">Element动态增减表单项中嵌套下拉菜单踩坑</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/22/element-forminlinedropdown.html" class="archive-article-date">
-  	<time datetime="2019-11-22T12:20:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>使用ELement时动态增减表单遇到的一个小小坑，当在动态改变的表单项中内嵌了一层下拉菜单dropdown时，我需要通过dropdown的command事件来控制显示dropdown-menu中的dropdown-item，但是官方文档中的command事件不支持接受除command属性之外的参数，那么便无法特定的修改动态增加的表单项中的某一个表单项中的下拉框，此路不通，灵机一动，想起Vue自带的$event属性，可以给事件传入一些额外的参数，废话不多说，上代码</em></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"export_main"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-form</span> <span class="attr">:model</span>=<span class="string">"exportAddressConfig"</span> <span class="attr">:inline</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span></span></span><br><span class="line"><span class="tag">      <span class="attr">v-for</span>=<span class="string">"(item, index) in exportAddressConfig.address"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:key</span>=<span class="string">"item.key"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:label</span>=<span class="string">"'导出地址' + (index + 1) + '：'"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:prop</span>=<span class="string">"'address.' + index + '.value'"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:rules</span>=<span class="string">"&#123;required: true, message: '地址不能为空', trigger: 'blur'&#125;"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">style</span>=<span class="string">"display: block;"</span></span></span><br><span class="line"><span class="tag">    &gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-dropdown</span> <span class="attr">trigger</span>=<span class="string">"click"</span> @<span class="attr">command</span>=<span class="string">"handleCommand($event, index)"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"el-dropdown-link select_type"</span>&gt;</span>&#123;&#123;item.defaultOption&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"el-icon-caret-bottom el-icon--right"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">el-dropdown-menu</span> <span class="attr">slot</span>=<span class="string">"dropdown"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-dropdown-item</span> <span class="attr">command</span>=<span class="string">"1"</span>&gt;</span>FTP地址<span class="tag">&lt;/<span class="name">el-dropdown-item</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-dropdown-item</span> <span class="attr">command</span>=<span class="string">"2"</span>&gt;</span>共享文件夹地址<span class="tag">&lt;/<span class="name">el-dropdown-item</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">el-dropdown-menu</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-dropdown</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-if</span>=<span class="string">"item.addressType === '1'"</span> <span class="attr">v-model</span>=<span class="string">"item.value"</span> <span class="attr">:disabled</span>=<span class="string">"exportFrom"</span> <span class="attr">placeholder</span>=<span class="string">"请输入FTP地址"</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-if</span>=<span class="string">"item.addressType === '2'"</span> <span class="attr">v-model</span>=<span class="string">"item.value"</span> <span class="attr">:disabled</span>=<span class="string">"exportFrom"</span> <span class="attr">placeholder</span>=<span class="string">"请输入共享文件夹地址"</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">"text"</span> @<span class="attr">click</span>=<span class="string">"addExportAddress"</span> <span class="attr">:disabled</span>=<span class="string">"addActive"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"el-icon-circle-plus-outline"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">      新增导出地址</span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">style</span>=<span class="string">"margin-left: 180px;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">"text"</span> @<span class="attr">click</span>=<span class="string">"removeExportAddress"</span> <span class="attr">:disabled</span>=<span class="string">"removeActive"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"el-icon-remove-outline"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    删除导出地址</span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">data() &#123;</span><br><span class="line">         <span class="keyword">return</span> &#123;</span><br><span class="line">           exportAddressConfig: &#123;</span><br><span class="line">             address: [&#123;</span><br><span class="line">               addressType: <span class="string">'1'</span>, <span class="comment">// 默认导出类型标志</span></span><br><span class="line">               defaultOption: <span class="string">'FTP地址'</span>, <span class="comment">// 默认导出地址</span></span><br><span class="line">               value: <span class="string">''</span> <span class="comment">// 地址</span></span><br><span class="line">              &#125;]</span><br><span class="line">            &#125;,</span><br><span class="line">            exportFrom: <span class="literal">false</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">          handleCommand(command, index) &#123;</span><br><span class="line">            <span class="keyword">this</span>.exportAddressConfig.address[index].addressType = command</span><br><span class="line">            <span class="keyword">this</span>.exportAddressConfig.address[index].defaultOption = command === <span class="string">'1'</span> ? <span class="string">'FTP地址'</span> : <span class="string">'共享文件夹地址'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        addExportAddress() &#123;</span><br><span class="line">          <span class="keyword">this</span>.exportAddressConfig.address.push(&#123;</span><br><span class="line">            addressType: <span class="string">'1'</span>,</span><br><span class="line">            defaultOption: <span class="string">'FTP地址'</span>,</span><br><span class="line">            value: <span class="string">''</span>,</span><br><span class="line">            key: <span class="built_in">Date</span>.now()</span><br><span class="line">          &#125;)</span><br><span class="line">          <span class="keyword">this</span>.exportFrom = <span class="literal">false</span></span><br><span class="line">        &#125;,</span><br><span class="line">        removeExportAddress() &#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="keyword">this</span>.exportAddressConfig.address.length &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.exportAddressConfig.address.pop()</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<p><em>解决这个问题的关键就是在于在循环生成的下拉框的command事件中，把每一次循环的索引值传入，在触发command事件时，就可以对当前索引值的下拉框的菜单项进行操作，而不会改变所有生成的下拉框的菜单项。</em></p>
-<p><strong>还在学习成长的前端小白，用词不太准确，文字功底也有限，欢迎大家指正，一起学习，一同成长。</strong></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Element</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/前端//" class="article-tag-list-link color3">前端</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/22/element-forminlinedropdown.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
+    </nav>
   
 
 
@@ -1243,23 +1255,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">echarts</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1268,6 +1264,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
             
             <div class="clearfix"></div>

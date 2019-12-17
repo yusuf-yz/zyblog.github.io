@@ -277,12 +277,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="index-html访问空白"><a href="#index-html访问空白" class="headerlink" title="index.html访问空白"></a>index.html访问空白</h5><p><em>在*</em>config/index.js<strong>文件中修改配置</strong>assetsPublicPath<strong>，把</strong>assetsPublicPath: ‘/‘<strong>，改成</strong>assetsPublicPath: ‘./‘***</p>
+        <h5 id="index-html访问空白"><a href="#index-html访问空白" class="headerlink" title="index.html访问空白"></a>index.html访问空白</h5><p>在<strong>config/index.js</strong>文件中修改配置<strong>assetsPublicPath</strong>，把<strong>assetsPublicPath: ‘/‘</strong>，改成 <strong>assetsPublicPath: ‘./‘</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">          // Template for index.html</span><br><span class="line">          index: path.resolve(__dirname, &apos;../dist/index.html&apos;),</span><br><span class="line"></span><br><span class="line">          // Paths</span><br><span class="line">          assetsRoot: path.resolve(__dirname, &apos;../dist&apos;),</span><br><span class="line">          assetsSubDirectory: &apos;static&apos;,</span><br><span class="line">          assetsPublicPath: &apos;./&apos;, // 解决打包后，访问html，显示空白问题</span><br><span class="line"></span><br><span class="line">          ******</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="图片无法显示"><a href="#图片无法显示" class="headerlink" title="图片无法显示"></a>图片无法显示</h5><p><em>找到*</em>build/utils.js<strong>，搜索</strong>use: loaders<strong>，下面添加</strong>publicPath: ‘../../‘***</p>
+<h5 id="图片无法显示"><a href="#图片无法显示" class="headerlink" title="图片无法显示"></a>图片无法显示</h5><p>找到<strong>build/utils.js</strong>，搜索<strong>use: loaders</strong>，下面添加<strong>publicPath: ‘../../‘</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// Extract CSS when that option is specified</span><br><span class="line">// (which is the case during production build)</span><br><span class="line">if (options.extract) &#123;</span><br><span class="line">    return ExtractTextPlugin.extract(&#123;</span><br><span class="line">    use: loaders,</span><br><span class="line">    publicPath: &apos;../../&apos;, // 解决图片无法显示问题</span><br><span class="line">    fallback: &apos;vue-style-loader&apos;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  return [&apos;vue-style-loader&apos;].concat(loaders)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h5 id="样式丢失"><a href="#样式丢失" class="headerlink" title="样式丢失"></a>样式丢失</h5><p><em>在<strong>main.js</strong>修改导入包的顺序，将路由包放到最后</em></p>
+<h5 id="样式丢失"><a href="#样式丢失" class="headerlink" title="样式丢失"></a>样式丢失</h5><p>在<strong>main.js</strong>修改导入包的顺序，将路由包放到最后</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">import App from &apos;./App&apos;</span><br><span class="line">import store from &apos;./store&apos;</span><br><span class="line">import &apos;babel-polyfill&apos;</span><br><span class="line">import apiBaseUrlConfig from &apos;./global/apiBaseUrlConfig&apos;</span><br><span class="line">// 引入elementUI</span><br><span class="line">import ElementUI from &apos;element-ui&apos;</span><br><span class="line">import utils from &apos;./global/utils&apos;</span><br><span class="line"></span><br><span class="line">// 引入自写公共组件</span><br><span class="line">import &apos;@/components/common&apos;</span><br><span class="line"></span><br><span class="line">// 自定义icon</span><br><span class="line">import &apos;@/assets/css/system_Setting/iconfont.css&apos;</span><br><span class="line">import Axios from &apos;axios&apos;</span><br><span class="line"></span><br><span class="line">import router from &apos;./router&apos; // 解决样式丢失问题</span><br><span class="line"></span><br><span class="line">Vue.use(apiBaseUrlConfig)</span><br><span class="line">Vue.use(ElementUI)</span><br></pre></td></tr></table></figure>
 
 <p><strong>一个正在成长的前端小白~</strong></p>
@@ -1263,7 +1263,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Element</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1271,11 +1271,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">Element</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1283,7 +1283,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
             
             <div class="clearfix"></div>

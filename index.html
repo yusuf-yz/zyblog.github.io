@@ -141,6 +141,215 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-javascript-prototype" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/17/javascript-prototype.html">JavaScript原型链理解</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/17/javascript-prototype.html" class="archive-article-date">
+  	<time datetime="2019-12-17T13:57:50.993Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>虽然JavaScript里<strong>一切皆对象</strong>，但为了理解原型链系统之间错综复杂的关系 ，我们需要先将JavaScript的对象分为对象和函数两大类。在此基础上，JavaScript的原型链逻辑遵从以下通用规则：</em></p>
+<h5 id="通用规则"><a href="#通用规则" class="headerlink" title="通用规则"></a>通用规则</h5><p>1.对象有<strong>proto</strong>属性，函数有prototype属性<br>2.对象由函数生成<br>3.生成对象时，对象的<strong>proto</strong>属性指向函数的prototype属性</p>
+<p>在没有手动修改<strong>proto</strong>属性的指向时，以上三条便是JavaScript默认原型链指向逻辑。</p>
+<p>下面我们来从最一般的情况开始，逐步深入的详细解释一下：</p>
+<h5 id="1-一般情况"><a href="#1-一般情况" class="headerlink" title="1.一般情况"></a>1.一般情况</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">创建空对象时，实际上是用Object函数来生成对象的：</span><br><span class="line">&gt;var o = &#123;&#125;</span><br><span class="line">&gt;o.__proto__ === Object.prototype</span><br><span class="line">true</span><br><span class="line"></span><br><span class="line">也可以显式的使用Object函数来创建对象：</span><br><span class="line">&gt;var o = Object()</span><br><span class="line">o.__proto__ === Object.prototype</span><br><span class="line">true</span><br><span class="line"></span><br><span class="line">当使用函数来创建自定义的对象时，上面的规则同样适用：</span><br><span class="line">&gt;function MyObj()&#123;&#125;</span><br><span class="line">&gt;typeof MyObj</span><br><span class="line">&quot;function&quot;</span><br><span class="line">&gt;var myobj = new MyObj()</span><br><span class="line">&gt;myobj.__proto__ === MyObj.prototype</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-函数对象"><a href="#2-函数对象" class="headerlink" title="2. 函数对象"></a>2. 函数对象</h5><p>既然JavaScript里“一切皆对象”，那函数自然也是对象的一种。对于函数作为对象来说，上面的规则同样适用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">函数对象都是由Function函数生成的：</span><br><span class="line">&gt;function fn () &#123;&#125;</span><br><span class="line">&gt;fn.__proto__ === Function.prototype</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，把函数当做对象时，生成它的函数就是Function函数。那Function函数本身呢？同样适用！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Function函数本身作为对象时，生成它的函数是他自身！</span><br><span class="line">&gt;Function.__proto__ === Function.prototype</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<p>同样我们知道，Object函数也是一个函数对象，那么它是否符合上面的规则呢？当然！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object函数既然是函数，那生成它的函数自然是Function函数咯：</span><br><span class="line">&gt;Object.__proto__ === Function.prototype</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-prototype究竟是谁？"><a href="#3-prototype究竟是谁？" class="headerlink" title="3. prototype究竟是谁？"></a>3. prototype究竟是谁？</h5><p>好了，现在我们知道，对象的<strong>proto</strong>属性是从生成它的函数的prototype那里得来的，那我们不禁要问，函数的prototype又是从哪里而来？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">一般函数默认的prototype是系统自动生成的一个对象：</span><br><span class="line">&gt;function fn () &#123;&#125;</span><br><span class="line">&gt;typeof fn.prototype</span><br><span class="line">&quot;object&quot;</span><br><span class="line">&gt;fn.prototype</span><br><span class="line">&#123;constructor: ƒ&#125;</span><br><span class="line">    constructor: ƒ fn()</span><br><span class="line">    __proto__: Object</span><br><span class="line"></span><br><span class="line">&gt;fn.prototype.constructor === fn</span><br><span class="line">true</span><br><span class="line">&gt;fn.prototype.__proto__ === Object.prototype</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<p>一般函数默认的prototype是一个类型为”object”的对象，它有两个属性：constructor和 <strong>proto</strong>。其中constructor属性指向这个函数自身，<strong>proto</strong>属性指向Object.prototype，这说明一般函数的prototype属性是由Object函数生成的。</p>
+<h5 id="4-特殊情况"><a href="#4-特殊情况" class="headerlink" title="4. 特殊情况"></a>4. 特殊情况</h5><p>前面我们特别强调了是一般函数，那不一般的函数是谁呢？当然是<strong>Object函数</strong>和<strong>Function函数</strong>！<br>先来看Object.prototype:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;typeof Object.prototype</span><br><span class="line">&quot;object&quot;</span><br><span class="line">&gt;Object.prototype</span><br><span class="line">&#123;constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …&#125;</span><br><span class="line">    constructor: ƒ Object()</span><br><span class="line">    hasOwnProperty: ƒ hasOwnProperty()</span><br><span class="line">    isPrototypeOf: ƒ isPrototypeOf()</span><br><span class="line">    propertyIsEnumerable: ƒ propertyIsEnumerable()</span><br><span class="line">    toLocaleString: ƒ toLocaleString()</span><br><span class="line">    toString: ƒ toString()</span><br><span class="line">    valueOf: ƒ valueOf()</span><br><span class="line">    __defineGetter__: ƒ __defineGetter__()</span><br><span class="line">    __defineSetter__: ƒ __defineSetter__()</span><br><span class="line">    __lookupGetter__: ƒ __lookupGetter__()</span><br><span class="line">    __lookupSetter__: ƒ __lookupSetter__()</span><br><span class="line">    get __proto__: ƒ __proto__()</span><br><span class="line">    set __proto__: ƒ __proto__()</span><br></pre></td></tr></table></figure>
+<p>可以看到Object函数的prototype属性也是一个类型为”object”的对象，但和一般函数的默认prototype属性不一样的是，它多了一大堆方法，这些方法都是JavaScript对象的系统默认方法。<br>再仔细看，好像少了什么，对了，Object函数的prototype属性里没有<strong>proto</strong>属性，我们试着把它的<strong>proto</strong>属性打出来看看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;Object.prototype.__proto__</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
+<p>这就是Object函数特殊情况了：Object.prototype.<strong>proto</strong> === null，我们知道，这就是JavaScript原型链的终点了。<br>为什么要这样设定呢？<br>typeof Object.prototype === “object”，说明它是一个Object对象，如果它由Object函数生成，于是按照我们上面的通用规则，就该是Object.prototype.<strong>proto</strong> === Object.prototype。<br>啊哈，问题出现了，Object.prototype.<strong>proto</strong>属性指向了它自身，这样以<strong>proto</strong>属性构成的原型链就再也没有终点了！所以<strong>为了让原型链有终点</strong>，在原型链的最顶端，JavaScript规定了Object.prototype.<strong>proto</strong> === null。<br>好，现在再来看Function函数吧：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;typeof Function.prototype</span><br><span class="line">&quot;function&quot;</span><br></pre></td></tr></table></figure>
+<p>一上来就不走寻常路，Function函数的prototype属性是一个”function”类型的对象，而不像其他函数是类型为”object”的对象。那是个什么样的函数呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;Function.prototype</span><br><span class="line">ƒ () &#123; [native code] &#125;</span><br></pre></td></tr></table></figure>
+<p>函数内部是[native code]，也就是系统编译好的二进制代码函数，这就暂时没法深究了。现在让我们来看看我们最关心的<strong>proto</strong>属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;Function.prototype.__proto__</span><br><span class="line">&#123;constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …&#125;</span><br><span class="line">    constructor: ƒ Object()</span><br><span class="line">    hasOwnProperty: ƒ hasOwnProperty()</span><br><span class="line">    isPrototypeOf: ƒ isPrototypeOf()</span><br><span class="line">    propertyIsEnumerable: ƒ propertyIsEnumerable()</span><br><span class="line">    toLocaleString: ƒ toLocaleString()</span><br><span class="line">    toString: ƒ toString()</span><br><span class="line">    valueOf: ƒ valueOf()</span><br><span class="line">    __defineGetter__: ƒ __defineGetter__()</span><br><span class="line">    __defineSetter__: ƒ __defineSetter__()</span><br><span class="line">    __lookupGetter__: ƒ __lookupGetter__()</span><br><span class="line">    __lookupSetter__: ƒ __lookupSetter__()</span><br><span class="line">    get __proto__: ƒ __proto__()</span><br><span class="line">    set __proto__: ƒ __proto__()</span><br></pre></td></tr></table></figure>
+<p>怎么有种似曾相识的感觉呢？看起来很像是Object.prototype，让我们来试试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;Function.prototype.__proto__ === Object.prototype</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<p>果然就是它！<br>按照我们最开始提出的通用规则，一个”function”类型的对象，应该是由Function函数生成的，那它的prototype属性应该指向Function.prototype，也就是Function.prototype.<strong>proto</strong> === Function.prototype。和Object函数同样的问题出现了：循环引用。所以JavaScript规定Function.prototype.<strong>proto</strong> === Object.prototype，这样既避免了出现循环引用，又让<strong>proto</strong>构成的原型链指向了唯一的终点：Object.prototype.<strong>proto</strong> === null。</p>
+<h5 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h5><p>至此，我们从最一般的对象一直追溯到了Object函数和Function函数，并找在原型链的顶端发现了两个例外情况，也知道了这两个例外个规定是为了让<strong>proto</strong>构成的原型链存在一个唯一的终点。</p>
+<p><strong>现在我们再来看这张JavaScript原型链的图，是不是一目了然了呢？</strong><br><img src="https://img-blog.csdnimg.cn/20191203162828312.png" alt="prototype"></p>
+<p><strong>一个正在成长的前端小白~</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/JavaScript//" class="article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/17/javascript-prototype.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-vue-package" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/12/17/vue-package.html">Vue项目打包出现的常见问题</a>
+    </h1>
+  
+
+        
+        <a href="/2019/12/17/vue-package.html" class="archive-article-date">
+  	<time datetime="2019-12-17T13:51:49.877Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="index-html访问空白"><a href="#index-html访问空白" class="headerlink" title="index.html访问空白"></a>index.html访问空白</h5><p><em>在*</em>config/index.js<strong>文件中修改配置</strong>assetsPublicPath<strong>，把</strong>assetsPublicPath: ‘/‘<strong>，改成</strong>assetsPublicPath: ‘./‘***</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">          // Template for index.html</span><br><span class="line">          index: path.resolve(__dirname, &apos;../dist/index.html&apos;),</span><br><span class="line"></span><br><span class="line">          // Paths</span><br><span class="line">          assetsRoot: path.resolve(__dirname, &apos;../dist&apos;),</span><br><span class="line">          assetsSubDirectory: &apos;static&apos;,</span><br><span class="line">          assetsPublicPath: &apos;./&apos;, // 解决打包后，访问html，显示空白问题</span><br><span class="line"></span><br><span class="line">          ******</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="图片无法显示"><a href="#图片无法显示" class="headerlink" title="图片无法显示"></a>图片无法显示</h5><p><em>找到*</em>build/utils.js<strong>，搜索</strong>use: loaders<strong>，下面添加</strong>publicPath: ‘../../‘***</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// Extract CSS when that option is specified</span><br><span class="line">// (which is the case during production build)</span><br><span class="line">if (options.extract) &#123;</span><br><span class="line">    return ExtractTextPlugin.extract(&#123;</span><br><span class="line">    use: loaders,</span><br><span class="line">    publicPath: &apos;../../&apos;, // 解决图片无法显示问题</span><br><span class="line">    fallback: &apos;vue-style-loader&apos;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  return [&apos;vue-style-loader&apos;].concat(loaders)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="样式丢失"><a href="#样式丢失" class="headerlink" title="样式丢失"></a>样式丢失</h5><p><em>在<strong>main.js</strong>修改导入包的顺序，将路由包放到最后</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">import App from &apos;./App&apos;</span><br><span class="line">import store from &apos;./store&apos;</span><br><span class="line">import &apos;babel-polyfill&apos;</span><br><span class="line">import apiBaseUrlConfig from &apos;./global/apiBaseUrlConfig&apos;</span><br><span class="line">// 引入elementUI</span><br><span class="line">import ElementUI from &apos;element-ui&apos;</span><br><span class="line">import utils from &apos;./global/utils&apos;</span><br><span class="line"></span><br><span class="line">// 引入自写公共组件</span><br><span class="line">import &apos;@/components/common&apos;</span><br><span class="line"></span><br><span class="line">// 自定义icon</span><br><span class="line">import &apos;@/assets/css/system_Setting/iconfont.css&apos;</span><br><span class="line">import Axios from &apos;axios&apos;</span><br><span class="line"></span><br><span class="line">import router from &apos;./router&apos; // 解决样式丢失问题</span><br><span class="line"></span><br><span class="line">Vue.use(apiBaseUrlConfig)</span><br><span class="line">Vue.use(ElementUI)</span><br></pre></td></tr></table></figure>
+
+<p><strong>一个正在成长的前端小白~</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/vue//" class="article-tag-list-link color4">vue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/12/17/vue-package.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-component-communication" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -494,11 +703,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Element</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Element</a>
         		</li>
       		
 		</ul>
@@ -945,215 +1154,6 @@
 
 
   
-    <article id="post-win10-active" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/22/win10-active.html">Win10各版本的激活方式</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/22/win10-active.html" class="archive-article-date">
-  	<time datetime="2019-11-22T15:43:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>在cmd命令或者git bash中按自己安装的版本对应输入下面的命令，完成激活win10系统的激活，不是win10系统的顺便附上一个免费下载各种系统的资源链接，<a href="https://msdn.itellyou.cn/" target="_blank" rel="noopener">MSDN</a>，当然，这里面不仅仅是操作系统，各种开发工具，设计工具，应用程序和服务器，关键是免费，需要的可自行下载安装，因为是ed2k链接下载，推荐可以用迅雷下</em></p>
-<h4 id="家庭版依次输入："><a href="#家庭版依次输入：" class="headerlink" title="家庭版依次输入："></a>家庭版依次输入：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">slmgr /ipk TX9XD-98N7V-6WMQ6-BX7FG-H8Q99</span><br><span class="line"> </span><br><span class="line">slmgr /skms kms.03k.org</span><br><span class="line"> </span><br><span class="line">slmgr /ato</span><br></pre></td></tr></table></figure>
-
-<h4 id="专业版请依次输入："><a href="#专业版请依次输入：" class="headerlink" title="专业版请依次输入："></a>专业版请依次输入：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">slmgr /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX</span><br><span class="line"> </span><br><span class="line">slmgr /skms kms.03k.org</span><br><span class="line"> </span><br><span class="line">slmgr /ato</span><br></pre></td></tr></table></figure>
-
-<h4 id="企业版请依次输入："><a href="#企业版请依次输入：" class="headerlink" title="企业版请依次输入："></a>企业版请依次输入：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">slmgr /ipk NPPR9-FWDCX-D2C8J-H872K-2YT43</span><br><span class="line"> </span><br><span class="line">slmgr /skms kms.03k.org</span><br><span class="line"> </span><br><span class="line">slmgr /ato</span><br></pre></td></tr></table></figure>
-
-<p><img src="https://img-blog.csdnimg.cn/20191121151204862.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="激活成功"></p>
-<p><strong>如果出现这个页面，就说明你已经激活好了</strong></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/系统//" class="article-tag-list-link color3">系统</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/22/win10-active.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-git" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/22/git.html">Git常用命令与常见问题</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/22/git.html" class="archive-article-date">
-  	<time datetime="2019-11-22T13:03:42.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>1、vscode 用git 拉取代码，提示：在签出前，请清理存储库工作树</p>
-<ul>
-<li><strong>手动解决</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br><span class="line"></span><br><span class="line">git pull</span><br><span class="line"></span><br><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
-
-
-</li>
-</ul>
-<ul>
-<li><strong>放弃本地修改，直接覆盖，这个会重置掉未commit到本地的修改文件，用之前考虑清楚</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard</span><br><span class="line"></span><br><span class="line">git pull</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>2、清除工作区untracked files</p>
-<ul>
-<li><strong>源码的开发过程中，某一个项目git仓库中经常会出现一些untracked files，这些文件是git仓库没有管理的,需要清理掉。使用git status查看有两个文件没有被git管理</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">Untracked files:</span><br><span class="line">(use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line"></span><br><span class="line">    Test.md</span><br><span class="line">    Test2.md</span><br></pre></td></tr></table></figure></li>
-<li><strong>解决方法：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clean -df //清除当前目录下所有git仓库没有管理的文件或目录</span><br><span class="line">git clean -df 文件路径 //指定清除git仓库中没有管理的文件或目录</span><br></pre></td></tr></table></figure></li>
-<li><strong>清除完成后使用 git status查看,两个untacking file 被删除了：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">nothing to commit, working tree clean</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>3、暂存区回退到工作区</p>
-<ul>
-<li><strong>有的时候我们需要把提交到暂存区的文件回退到工作区中。使用git status查看 Test文件现在存在于暂存区中，我们希望把Test回退到工作区中：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">Changes to be committed:</span><br><span class="line">    (use &quot;git reset HEAD &lt;file&gt;...&quot; to unstage)</span><br><span class="line"></span><br><span class="line">    new file:   Test</span><br></pre></td></tr></table></figure></li>
-<li><strong>操作：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git已经智能的提示我们使用git reset HEAD &lt;file&gt;...来让暂存区文件回退到工作区。</span><br><span class="line">git reset HEAD 文件路径 //回退指定的文件到工作区</span><br><span class="line">例如： git reset HEAD Test</span><br></pre></td></tr></table></figure></li>
-<li><strong>再次查看git仓库状态，文件处于工作区了：</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">On branch master</span><br><span class="line">Untracked files:</span><br><span class="line">    (use &quot;git add &lt;file&gt;...&quot; to include in what will be committed)</span><br><span class="line"></span><br><span class="line">    Test</span><br></pre></td></tr></table></figure>
-4、打patch</li>
-<li><strong>团队开发中，自己本地修改了一些代码，还没有验证是否正确，此时不能往git服务器去推送。恰好同事也在跟这个问题，他希望在我的基础上进行追踪，希望我把我已经修改的代码给他。这个时候我可以通过打patch的方式实现。</strong></li>
-</ul>
-<p><strong>操作：</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">生成patch：</span><br><span class="line">1&gt;首先将自己的修改的代码本地进行提交即commit</span><br><span class="line">2&gt;git format-patch &lt;指定的commitId&gt;//注意生成的patch是这个commitId以上的提交</span><br><span class="line"></span><br><span class="line">比如有三个commitId： ac4f6d -- bcef67 -- adfc34</span><br><span class="line">执行git format-patch adfc34 就会生成两个patch</span><br><span class="line">第一个patch是 bcef67 -- adfc34 这两次提交的差异文件</span><br><span class="line">第二个patch是 ac4f6d -- bcef67 这两次提交的差异文件</span><br><span class="line"></span><br><span class="line">所以打patch就是生成提交之间的差异文件</span><br><span class="line"></span><br><span class="line">应用patch:</span><br><span class="line">git am 指定的patch</span><br></pre></td></tr></table></figure>
-
-<p><strong>一个正在成长的前端小白~</strong></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/git//" class="article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/22/git.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1255,15 +1255,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">echarts</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">Element</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1280,6 +1280,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
             
             <div class="clearfix"></div>

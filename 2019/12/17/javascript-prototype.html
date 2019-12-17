@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Category: vue | 我不张杨的博客</title>
+  <title>JavaScript原型链理解 | 我不张杨的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个正在成长的前端小白">
-<meta property="og:type" content="website">
-<meta property="og:title" content="我不张杨的博客">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;categories&#x2F;vue&#x2F;index.html">
+  <meta name="description" content="关于JavaScript原型链的一点小理解。">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript原型链理解">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;17&#x2F;javascript-prototype.html">
 <meta property="og:site_name" content="我不张杨的博客">
-<meta property="og:description" content="一个正在成长的前端小白">
+<meta property="og:description" content="关于JavaScript原型链的一点小理解。">
 <meta property="og:locale" content="zn-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191203162828312.png">
+<meta property="og:updated_time" content="2019-12-17T14:09:51.512Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191203162828312.png">
   
     <link rel="alternative" href="/atom.xml" title="我不张杨的博客" type="application/atom+xml">
   
@@ -139,71 +143,209 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-javascript-prototype" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/12/17/vue-package.html" class="archive-article-date">
-  	<time datetime="2019-12-17T13:51:49.877Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-17</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/17/vue-package.html">Vue项目打包出现的常见问题</a>
+    <h1 class="article-title" itemprop="name">
+      JavaScript原型链理解
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2019/12/17/javascript-prototype.html" class="archive-article-date">
+  	<time datetime="2019-12-17T13:57:50.993Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>虽然JavaScript里<strong>一切皆对象</strong>，但为了理解原型链系统之间错综复杂的关系 ，我们需要先将JavaScript的对象分为对象和函数两大类。在此基础上，JavaScript的原型链逻辑遵从以下通用规则：</em></p>
+<h5 id="通用规则"><a href="#通用规则" class="headerlink" title="通用规则"></a>通用规则</h5><p>1.对象有<strong>proto</strong>属性，函数有prototype属性<br>2.对象由函数生成<br>3.生成对象时，对象的<strong>proto</strong>属性指向函数的prototype属性</p>
+<p>在没有手动修改<strong>proto</strong>属性的指向时，以上三条便是JavaScript默认原型链指向逻辑。</p>
+<p>下面我们来从最一般的情况开始，逐步深入的详细解释一下：</p>
+<h5 id="1-一般情况"><a href="#1-一般情况" class="headerlink" title="1.一般情况"></a>1.一般情况</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">创建空对象时，实际上是用Object函数来生成对象的：</span><br><span class="line">&gt;var o = &#123;&#125;</span><br><span class="line">&gt;o.__proto__ === Object.prototype</span><br><span class="line">true</span><br><span class="line"></span><br><span class="line">也可以显式的使用Object函数来创建对象：</span><br><span class="line">&gt;var o = Object()</span><br><span class="line">o.__proto__ === Object.prototype</span><br><span class="line">true</span><br><span class="line"></span><br><span class="line">当使用函数来创建自定义的对象时，上面的规则同样适用：</span><br><span class="line">&gt;function MyObj()&#123;&#125;</span><br><span class="line">&gt;typeof MyObj</span><br><span class="line">&quot;function&quot;</span><br><span class="line">&gt;var myobj = new MyObj()</span><br><span class="line">&gt;myobj.__proto__ === MyObj.prototype</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-函数对象"><a href="#2-函数对象" class="headerlink" title="2. 函数对象"></a>2. 函数对象</h5><p>既然JavaScript里“一切皆对象”，那函数自然也是对象的一种。对于函数作为对象来说，上面的规则同样适用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">函数对象都是由Function函数生成的：</span><br><span class="line">&gt;function fn () &#123;&#125;</span><br><span class="line">&gt;fn.__proto__ === Function.prototype</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<p>我们可以看到，把函数当做对象时，生成它的函数就是Function函数。那Function函数本身呢？同样适用！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Function函数本身作为对象时，生成它的函数是他自身！</span><br><span class="line">&gt;Function.__proto__ === Function.prototype</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<p>同样我们知道，Object函数也是一个函数对象，那么它是否符合上面的规则呢？当然！</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Object函数既然是函数，那生成它的函数自然是Function函数咯：</span><br><span class="line">&gt;Object.__proto__ === Function.prototype</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-prototype究竟是谁？"><a href="#3-prototype究竟是谁？" class="headerlink" title="3. prototype究竟是谁？"></a>3. prototype究竟是谁？</h5><p>好了，现在我们知道，对象的<strong>proto</strong>属性是从生成它的函数的prototype那里得来的，那我们不禁要问，函数的prototype又是从哪里而来？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">一般函数默认的prototype是系统自动生成的一个对象：</span><br><span class="line">&gt;function fn () &#123;&#125;</span><br><span class="line">&gt;typeof fn.prototype</span><br><span class="line">&quot;object&quot;</span><br><span class="line">&gt;fn.prototype</span><br><span class="line">&#123;constructor: ƒ&#125;</span><br><span class="line">    constructor: ƒ fn()</span><br><span class="line">    __proto__: Object</span><br><span class="line"></span><br><span class="line">&gt;fn.prototype.constructor === fn</span><br><span class="line">true</span><br><span class="line">&gt;fn.prototype.__proto__ === Object.prototype</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<p>一般函数默认的prototype是一个类型为”object”的对象，它有两个属性：constructor和 <strong>proto</strong>。其中constructor属性指向这个函数自身，<strong>proto</strong>属性指向Object.prototype，这说明一般函数的prototype属性是由Object函数生成的。</p>
+<h5 id="4-特殊情况"><a href="#4-特殊情况" class="headerlink" title="4. 特殊情况"></a>4. 特殊情况</h5><p>前面我们特别强调了是一般函数，那不一般的函数是谁呢？当然是<strong>Object函数</strong>和<strong>Function函数</strong>！<br>先来看Object.prototype:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&gt;typeof Object.prototype</span><br><span class="line">&quot;object&quot;</span><br><span class="line">&gt;Object.prototype</span><br><span class="line">&#123;constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …&#125;</span><br><span class="line">    constructor: ƒ Object()</span><br><span class="line">    hasOwnProperty: ƒ hasOwnProperty()</span><br><span class="line">    isPrototypeOf: ƒ isPrototypeOf()</span><br><span class="line">    propertyIsEnumerable: ƒ propertyIsEnumerable()</span><br><span class="line">    toLocaleString: ƒ toLocaleString()</span><br><span class="line">    toString: ƒ toString()</span><br><span class="line">    valueOf: ƒ valueOf()</span><br><span class="line">    __defineGetter__: ƒ __defineGetter__()</span><br><span class="line">    __defineSetter__: ƒ __defineSetter__()</span><br><span class="line">    __lookupGetter__: ƒ __lookupGetter__()</span><br><span class="line">    __lookupSetter__: ƒ __lookupSetter__()</span><br><span class="line">    get __proto__: ƒ __proto__()</span><br><span class="line">    set __proto__: ƒ __proto__()</span><br></pre></td></tr></table></figure>
+<p>可以看到Object函数的prototype属性也是一个类型为”object”的对象，但和一般函数的默认prototype属性不一样的是，它多了一大堆方法，这些方法都是JavaScript对象的系统默认方法。<br>再仔细看，好像少了什么，对了，Object函数的prototype属性里没有<strong>proto</strong>属性，我们试着把它的<strong>proto</strong>属性打出来看看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;Object.prototype.__proto__</span><br><span class="line">null</span><br></pre></td></tr></table></figure>
+<p>这就是Object函数特殊情况了：Object.prototype.<strong>proto</strong> === null，我们知道，这就是JavaScript原型链的终点了。<br>为什么要这样设定呢？<br>typeof Object.prototype === “object”，说明它是一个Object对象，如果它由Object函数生成，于是按照我们上面的通用规则，就该是Object.prototype.<strong>proto</strong> === Object.prototype。<br>啊哈，问题出现了，Object.prototype.<strong>proto</strong>属性指向了它自身，这样以<strong>proto</strong>属性构成的原型链就再也没有终点了！所以<strong>为了让原型链有终点</strong>，在原型链的最顶端，JavaScript规定了Object.prototype.<strong>proto</strong> === null。<br>好，现在再来看Function函数吧：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;typeof Function.prototype</span><br><span class="line">&quot;function&quot;</span><br></pre></td></tr></table></figure>
+<p>一上来就不走寻常路，Function函数的prototype属性是一个”function”类型的对象，而不像其他函数是类型为”object”的对象。那是个什么样的函数呢？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;Function.prototype</span><br><span class="line">ƒ () &#123; [native code] &#125;</span><br></pre></td></tr></table></figure>
+<p>函数内部是[native code]，也就是系统编译好的二进制代码函数，这就暂时没法深究了。现在让我们来看看我们最关心的<strong>proto</strong>属性：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&gt;Function.prototype.__proto__</span><br><span class="line">&#123;constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …&#125;</span><br><span class="line">    constructor: ƒ Object()</span><br><span class="line">    hasOwnProperty: ƒ hasOwnProperty()</span><br><span class="line">    isPrototypeOf: ƒ isPrototypeOf()</span><br><span class="line">    propertyIsEnumerable: ƒ propertyIsEnumerable()</span><br><span class="line">    toLocaleString: ƒ toLocaleString()</span><br><span class="line">    toString: ƒ toString()</span><br><span class="line">    valueOf: ƒ valueOf()</span><br><span class="line">    __defineGetter__: ƒ __defineGetter__()</span><br><span class="line">    __defineSetter__: ƒ __defineSetter__()</span><br><span class="line">    __lookupGetter__: ƒ __lookupGetter__()</span><br><span class="line">    __lookupSetter__: ƒ __lookupSetter__()</span><br><span class="line">    get __proto__: ƒ __proto__()</span><br><span class="line">    set __proto__: ƒ __proto__()</span><br></pre></td></tr></table></figure>
+<p>怎么有种似曾相识的感觉呢？看起来很像是Object.prototype，让我们来试试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;Function.prototype.__proto__ === Object.prototype</span><br><span class="line">true</span><br></pre></td></tr></table></figure>
+<p>果然就是它！<br>按照我们最开始提出的通用规则，一个”function”类型的对象，应该是由Function函数生成的，那它的prototype属性应该指向Function.prototype，也就是Function.prototype.<strong>proto</strong> === Function.prototype。和Object函数同样的问题出现了：循环引用。所以JavaScript规定Function.prototype.<strong>proto</strong> === Object.prototype，这样既避免了出现循环引用，又让<strong>proto</strong>构成的原型链指向了唯一的终点：Object.prototype.<strong>proto</strong> === null。</p>
+<h5 id="5-总结"><a href="#5-总结" class="headerlink" title="5. 总结"></a>5. 总结</h5><p>至此，我们从最一般的对象一直追溯到了Object函数和Function函数，并找在原型链的顶端发现了两个例外情况，也知道了这两个例外个规定是为了让<strong>proto</strong>构成的原型链存在一个唯一的终点。</p>
+<p><strong>现在我们再来看这张JavaScript原型链的图，是不是一目了然了呢？</strong><br><img src="https://img-blog.csdnimg.cn/20191203162828312.png" alt="prototype"></p>
+<p><strong>一个正在成长的前端小白~</strong></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/vue//" class="article-tag-list-link color4">vue</a>
+        			<a href="/categories/JavaScript//" class="article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/12/17/javascript-prototype.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2019/12/17/vue-package.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Vue项目打包出现的常见问题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -226,10 +368,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",
@@ -431,50 +573,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <div class="pswp__top-bar">
 
                 <!--  Controls are self-explanatory. Order can be changed. -->
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
-                <!-- element will get class pswp__preloader--active when preloader is running -->
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                      <div class="pswp__preloader__cut">
-                        <div class="pswp__preloader__donut"></div>
-                      </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div> 
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-  </div>
-</body>
-</html>anged. -->
 
                 <div class="pswp__counter"></div>
 

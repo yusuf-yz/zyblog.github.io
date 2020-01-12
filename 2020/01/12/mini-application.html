@@ -6,18 +6,22 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Vue项目打包出现的常见问题 | 我不张杨的博客</title>
+  <title>小程序学习心得 | 我不张杨的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Vue项目打包会遇见的几个常见问题。">
-<meta name="keywords" content="vue">
+  <meta name="description" content="小程序学习心得">
+<meta name="keywords" content="mini">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue项目打包出现的常见问题">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;17&#x2F;vue-package.html">
+<meta property="og:title" content="小程序学习心得">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;12&#x2F;mini-application.html">
 <meta property="og:site_name" content="我不张杨的博客">
-<meta property="og:description" content="Vue项目打包会遇见的几个常见问题。">
+<meta property="og:description" content="小程序学习心得">
 <meta property="og:locale" content="zn-Hans">
-<meta property="og:updated_time" content="2019-12-17T14:16:20.748Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191210141110693.jpg?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191218092811199.jpg?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70">
+<meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191224131600266.jpg?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70">
+<meta property="og:updated_time" content="2020-01-12T12:59:26.104Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191210141110693.jpg?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70">
   
     <link rel="alternative" href="/atom.xml" title="我不张杨的博客" type="application/atom+xml">
   
@@ -141,35 +145,175 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-vue-package" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-mini-application" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Vue项目打包出现的常见问题
+      小程序学习心得
     </h1>
   
 
         
-        <a href="/2019/12/17/vue-package.html" class="archive-article-date">
-  	<time datetime="2019-12-17T13:51:49.877Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-17</time>
+        <a href="/2020/01/12/mini-application.html" class="archive-article-date">
+  	<time datetime="2020-01-12T12:27:38.959Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-12</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="index-html访问空白"><a href="#index-html访问空白" class="headerlink" title="index.html访问空白"></a>index.html访问空白</h5><p>在<strong>config/index.js</strong>文件中修改配置<strong>assetsPublicPath</strong>，把<strong>assetsPublicPath: ‘/‘</strong>，改成 <strong>assetsPublicPath: ‘./‘</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">build: &#123;</span><br><span class="line">          // Template for index.html</span><br><span class="line">          index: path.resolve(__dirname, &apos;../dist/index.html&apos;),</span><br><span class="line"></span><br><span class="line">          // Paths</span><br><span class="line">          assetsRoot: path.resolve(__dirname, &apos;../dist&apos;),</span><br><span class="line">          assetsSubDirectory: &apos;static&apos;,</span><br><span class="line">          assetsPublicPath: &apos;./&apos;, // 解决打包后，访问html，显示空白问题</span><br><span class="line"></span><br><span class="line">          ******</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="图片无法显示"><a href="#图片无法显示" class="headerlink" title="图片无法显示"></a>图片无法显示</h5><p>找到<strong>build/utils.js</strong>，搜索<strong>use: loaders</strong>，下面添加<strong>publicPath: ‘../../‘</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">// Extract CSS when that option is specified</span><br><span class="line">// (which is the case during production build)</span><br><span class="line">if (options.extract) &#123;</span><br><span class="line">    return ExtractTextPlugin.extract(&#123;</span><br><span class="line">    use: loaders,</span><br><span class="line">    publicPath: &apos;../../&apos;, // 解决图片无法显示问题</span><br><span class="line">    fallback: &apos;vue-style-loader&apos;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125; else &#123;</span><br><span class="line">  return [&apos;vue-style-loader&apos;].concat(loaders)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h3 id="小程序的双线程模型"><a href="#小程序的双线程模型" class="headerlink" title="小程序的双线程模型"></a>小程序的双线程模型</h3><p>小程序的宿主环境：<strong>微信客户端</strong></p>
+<ul>
+<li>宿主环境为了执行小程序的各种文件：wxml文件、wxss文件、js文件</li>
+<li>提供了小程序的双线程模型</li>
+</ul>
+<h4 id="双线程模型"><a href="#双线程模型" class="headerlink" title="双线程模型"></a>双线程模型</h4><ul>
+<li>WXML模板和WXSS样式运行与渲染层，渲染层使用WebView线程渲染（一个程序有多个页面，会使用多个WebView的线程 ）。</li>
+<li>JS脚本（app.js/home.js等）运行于逻辑层，逻辑层使用JsCore运行JS脚本。</li>
+<li>这两个线程都会经由微信客户端（Native）进行中转交互。</li>
+</ul>
+<h3 id="界面渲染整体流程"><a href="#界面渲染整体流程" class="headerlink" title="界面渲染整体流程"></a>界面渲染整体流程</h3><p>1.在渲染层，宿主环境会把WXML转化成对应的JS对象<br>2.将JS对象再次转成真实的DOM树，交由渲染层线程渲染<br>3.数据变化时，逻辑层提供最新的变化数据，JS对象发生变化比较进行diff算法对比<br>4.将最新变化的内容反映到真实的DOM树中，更新UI</p>
+<h3 id="启动流程"><a href="#启动流程" class="headerlink" title="启动流程"></a>启动流程</h3><p><img src="https://img-blog.csdnimg.cn/20191210141110693.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="start"></p>
+<h5 id="注册App时，一般会做："><a href="#注册App时，一般会做：" class="headerlink" title="注册App时，一般会做："></a>注册App时，一般会做：</h5><p>1.判断小程序的进入场景<br>2.监听生命周期函数，在生命周期中执行对应的业务逻辑，比如在某个生命周期函数中获取微信用户的信息<br>3.因为App()实例只有一个，并且是全局共享的（单例对象），所以可以将一些共享数据放在这里</p>
+<h3 id="常用内置组件"><a href="#常用内置组件" class="headerlink" title="常用内置组件"></a>常用内置组件</h3><ul>
+<li><strong>text</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- selectable属性：默认情况下text中的文本长按是不能选中的，要实现可以选中，需要设置成true --&gt;</span><br><span class="line">&lt;text selectable=&quot;&#123;&#123;true&#125;&#125;&quot;&gt;Hello World&lt;/text&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- space属性：决定文本空格的大小 --&gt;</span><br><span class="line">&lt;text space=&apos;nbsp&apos;&gt;Hello World&lt;/text&gt; // 根据字体设置的空格大小</span><br><span class="line">&lt;text space=&apos;ensp&apos;&gt;Hello World&lt;/text&gt; // 半个中文字符大小</span><br><span class="line">&lt;text space=&apos;emsp&apos;&gt;Hello World&lt;/text&gt; // 一个中文字符大小</span><br><span class="line"> </span><br><span class="line">&lt;!-- decode属性：是否解码文本 --&gt;</span><br><span class="line">&lt;!-- decode可以解析的有：&amp;nbsp; &amp;lt; &amp;gt; &amp;amp; &amp;apos; &amp;ensp; &amp;emsp; --&gt;</span><br><span class="line">&lt;text decode=&apos;&apos;&gt;5 &amp;gt; 3&lt;/text&gt; // 5 &gt; 3</span><br></pre></td></tr></table></figure></li>
+<li><strong>button</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- size属性：决定按钮的大小，行内块级元素，一行可以有多个；默认是块级元素，独占一行 --&gt;</span><br><span class="line">&lt;button size=&quot;mini&quot;&gt;按钮&lt;/button&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- type属性：primary(主要绿色)，default(默认白色)，warn(警告红色) --&gt;</span><br><span class="line">&lt;button size=&quot;mini&quot; type=&quot;primary&quot;&gt;按钮&lt;/button&gt;</span><br><span class="line">&lt;button size=&quot;mini&quot; type=&quot;default&quot;&gt;按钮&lt;/button&gt;</span><br><span class="line">&lt;button size=&quot;mini&quot; type=&quot;warn&quot;&gt;按钮&lt;/button&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- disable属性：true为不可用，false为可用；默认值为true --&gt;</span><br><span class="line">&lt;button size=&quot;mini&quot; disable&gt;按钮&lt;/button&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- loading属性：带有加载的icon，true为显示加载，false为不显示加载，默认为true --&gt;</span><br><span class="line">&lt;button size=&quot;mini&quot; loading&gt;按钮&lt;/button&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- hover-class属性：添加点击与按住的类名，在wxss中设置点击与按住时按钮的样式 --&gt;</span><br><span class="line">&lt;button size=&quot;mini&quot; hover-class=&quot;press&quot;&gt;按钮&lt;/button&gt;</span><br><span class="line"> </span><br><span class="line">.press &#123;</span><br><span class="line">  backgroud: red;</span><br><span class="line">  color: white;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>view</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- hover-class属性：当用户按下组件时，显示的样式 --&gt;</span><br><span class="line">&lt;view class=&quot;box&quot; hover-class=&quot;press&quot;&gt;box&lt;/view&gt;</span><br><span class="line"> </span><br><span class="line">.box &#123;</span><br><span class="line">  background: red;</span><br><span class="line">  color: white;</span><br><span class="line">  font-size: 18px;</span><br><span class="line">&#125;</span><br><span class="line">.press&#123;</span><br><span class="line">  background: yellow;</span><br><span class="line">  color: black;</span><br><span class="line">  font-size: 30px;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&lt;!-- hover-start-time属性：当用户按住后多久显示hover-class中设置的样式，单位毫秒，默认50，直接写number无效时，加上&#123;&#123;&#125;&#125;，即&#123;&#123;number&#125;&#125; --&gt;</span><br><span class="line">&lt;view class=&quot;box&quot; hover-class=&quot;press&quot; hover-start-time=&quot;&#123;&#123;1000&#125;&#125;&quot;&gt;box&lt;/view&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- hover-stay-time属性：当用户手指松开后hover-class中设置的样式保留时间，单位毫秒，默认400，直接写number无效时，加上&#123;&#123;&#125;&#125;，即&#123;&#123;number&#125;&#125; --&gt;</span><br><span class="line">&lt;view class=&quot;box&quot; hover-class=&quot;press&quot; hover-start-time=&quot;&#123;&#123;1000&#125;&#125;&quot; hover-stay-time&quot;&#123;&#123;1000&#125;&#125;&quot;&gt;box&lt;/view&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- hover-stop-propagation属性：当有多个view嵌套时，是否阻止当前view的祖先节点显示hover-class中设置的样式，前提是祖先节点也设置了hover-class属性，默认false--&gt;</span><br><span class="line">&lt;view class=&quot;box&quot; hover-class=&quot;press&quot;&gt;box1</span><br><span class="line">  &lt;view class=&quot;box&quot; hover-class=&quot;press&quot; hover-stop-propagation=&quot;&#123;&#123;true&#125;&#125;&quot;&gt;box2&lt;/view&gt;</span><br><span class="line">&lt;/view&gt;</span><br></pre></td></tr></table></figure></li>
+<li><strong>image</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 可以写成单标签，也可以写成双标签 --&gt;</span><br><span class="line">&lt;!-- 默认有自己的大小：320x240 --&gt;</span><br><span class="line">&lt;!-- 行内块级元素 --&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- src属性：本地路径(相对路径/绝对路径)/远程地址 --&gt;</span><br><span class="line">&lt;img src=&quot;../../assets/img/home.jpg&quot;&gt;</span><br><span class="line">&lt;img src=&quot;/assets/img/home.jpg&quot;&gt;</span><br><span class="line">&lt;img src=&quot;https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg&quot;&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- bindload属性：监听图片加载完成 --&gt;</span><br><span class="line">&lt;img src=&quot;https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg&quot; bindload=&quot;handleWatch&quot;&gt;</span><br><span class="line"> </span><br><span class="line">handleWatch () &#123;</span><br><span class="line">  console.log(&apos;图片加载完成...&apos;)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&lt;!-- lazy-load属性：图片懒加载，进入一定范围（上下三屏）时才开始加载，默认为false--&gt;</span><br><span class="line">&lt;img src=&quot;https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg&quot; lazy-load&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- show-menu-by-longpress属性：长按图片出现识别小程序码，默认为false --&gt;</span><br><span class="line">&lt;img src=&quot;https://res.wx.qq.com/wxdoc/dist/assets/img/0.4cb08bb4.jpg&quot; show-menu-by-longpress&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- mode属性：缩放图片 --&gt;</span><br><span class="line">&lt;!-- scaleToFill：缩放模式，不保持纵横比缩放图片，使图片的宽高完全拉伸至填满 image 元素 --&gt;</span><br><span class="line">&lt;!-- aspectFit：缩放模式，保持纵横比缩放图片，使图片的长边能完全显示出来 --&gt;</span><br><span class="line">&lt;!-- aspectFill：缩放模式，保持纵横比缩放图片，只保证图片的短边能完全显示出来 --&gt;</span><br><span class="line">&lt;!-- widthFix：缩放模式，宽度不变，高度自动变化，保持原图宽高比不变 --&gt;</span><br><span class="line">&lt;!-- top/bottom/center/left/right...：裁剪模式，不缩放图片，只显示图片的上面/下面/中间/左边/右边区域 --&gt;</span><br></pre></td></tr></table></figure></li>
+<li><strong>input</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 可以写成单标签，也可以写成双标签 --&gt;</span><br><span class="line">&lt;!-- 默认背景为透明色 --&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- value属性：默认初始值 --&gt;</span><br><span class="line">&lt;input value=&quot;Hello World&quot; /&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- type属性：决定键盘类型(文本/数字/身份证/带小数点的数字) --&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; /&gt; // 文本键盘</span><br><span class="line">&lt;input type=&quot;number&quot; /&gt; // 数字键盘</span><br><span class="line">&lt;input type=&quot;idcard&quot; /&gt; // 身份证键盘</span><br><span class="line">&lt;input type=&quot;digit&quot; /&gt; // 带小数点的数字键盘</span><br><span class="line"> </span><br><span class="line">&lt;!-- password属性：暗文 --&gt;</span><br><span class="line">&lt;input password /&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- placeholder属性：未输入内容时的占位文字 --&gt;</span><br><span class="line">&lt;input password placeholder=&quot;请输入密码&quot;/&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- confir-type属性：设置键盘右下角按钮的文字，仅在type=&apos;text&apos;时生效 --&gt;</span><br><span class="line">&lt;input type=&quot;text&quot; confir-type=&quot;send&quot; /&gt; // 右下角按钮为“发送”</span><br><span class="line">&lt;input type=&quot;text&quot; confir-type=&quot;search&quot; /&gt; // 右下角按钮为“搜索”</span><br><span class="line">&lt;input type=&quot;text&quot; confir-type=&quot;next&quot; /&gt; // 右下角按钮为“下一个”</span><br><span class="line">&lt;input type=&quot;text&quot; confir-type=&quot;go&quot; /&gt; // 右下角按钮为“前往”</span><br><span class="line">&lt;input type=&quot;text&quot; confir-type=&quot;done&quot; /&gt; // 右下角按钮为“完成”</span><br></pre></td></tr></table></figure></li>
+<li><strong>scroll-view</strong><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">HTML</span><br><span class="line">&lt;!-- 横向滚动 --&gt;</span><br><span class="line">&lt;scroll-view class=&quot;container&quot; scroll-x bindscroll=&quot;handleScroll&quot;&gt;</span><br><span class="line">  &lt;view wx:for=&quot;&#123;&#123;10&#125;&#125;&quot; class=&quot;main&quot;&gt;&#123;&#123;item&#125;&#125;&lt;/view&gt;</span><br><span class="line">&lt;/scorll-view&gt;</span><br><span class="line"> </span><br><span class="line">CSS</span><br><span class="line"> </span><br><span class="line">.container &#123;</span><br><span class="line">  background: red;</span><br><span class="line">  white-space: nowrap; // 不换行</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">.main &#123;</span><br><span class="line">  width: 100px;</span><br><span class="line">  height: 100px;</span><br><span class="line">  background: white;</span><br><span class="line">  margin: 10px;</span><br><span class="line">  display: inline-block;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">JS</span><br><span class="line">handleScroll (event) &#123;</span><br><span class="line">  console.log(event) // 横向滚动时，关注detail中的scrollLeft；纵向滚动时，关注detail中的scrollTop</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h5 id="共同属性"><a href="#共同属性" class="headerlink" title="共同属性"></a>共同属性</h5><table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th align="left">类型</th>
+<th align="left">描述</th>
+<th align="left">注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">id</td>
+<td align="left">String</td>
+<td align="left">组件的唯一标识符</td>
+<td align="left">整个页面唯一</td>
+</tr>
+<tr>
+<td align="left">class</td>
+<td align="left">String</td>
+<td align="left">组件的样式类</td>
+<td align="left">在对应的WXSS中定义的样式类</td>
+</tr>
+<tr>
+<td align="left">style</td>
+<td align="left">String</td>
+<td align="left">组件的内联样式</td>
+<td align="left">可以动态设置的内联样式</td>
+</tr>
+<tr>
+<td align="left">hidden</td>
+<td align="left">Boolean</td>
+<td align="left">组件是否显示</td>
+<td align="left">所有组件默认显示</td>
+</tr>
+<tr>
+<td align="left">data-*</td>
+<td align="left">Any</td>
+<td align="left">自定义属性</td>
+<td align="left">组件上触发事件时，会发送给相应的事件处理函数</td>
+</tr>
+<tr>
+<td align="left">bind<em>/catch</em></td>
+<td align="left">EventHandler</td>
+<td align="left">组件的事件</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h5 id="尺寸单位"><a href="#尺寸单位" class="headerlink" title="尺寸单位"></a>尺寸单位</h5><ul>
+<li><strong>rpx(responsive pixel)</strong>：可以根据屏幕宽度进行自适应，规定屏幕宽为750rpx；如在iPhone6上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。 </li>
+</ul>
+<p>|  设备  |  rpx换算px（屏幕宽度/750）  |  px换算rpx（750/屏幕宽度）  |<br>|  :—–  |  :—–  |  :—–  |  :—–  |<br>|  iPhone5  |  1rpx = 0.42px  |  1px = 2.34rpx  |<br>|  iPhone6  |      1rpx = 0.5px  |  1px = 2rpx  |<br>|  iPhone6 Plus  |  1rpx = 0.552px  |  1px = 1.81rpx  |</p>
+<h5 id="关于WXML导入的两种方式："><a href="#关于WXML导入的两种方式：" class="headerlink" title="关于WXML导入的两种方式："></a>关于WXML导入的两种方式：</h5><ul>
+<li><strong>import导入：</strong><blockquote>
+<p>1.主要是导入template<br>2.不能进行递归导入（例如，B中导入C，A中导入B，A中使用C时会报错：not found C）</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>A文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;import src=&quot;/first.wxml&quot; /&gt; // 导入模板</span><br><span class="line"> </span><br><span class="line">&lt;template is=&quot;first&quot;/&gt; // 调用正常导入的</span><br><span class="line">&lt;template is=&quot;second&quot;/&gt; // 调用递归导入的</span><br></pre></td></tr></table></figure>
 
-<h5 id="样式丢失"><a href="#样式丢失" class="headerlink" title="样式丢失"></a>样式丢失</h5><p>在<strong>main.js</strong>修改导入包的顺序，将路由包放到最后</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">import App from &apos;./App&apos;</span><br><span class="line">import store from &apos;./store&apos;</span><br><span class="line">import &apos;babel-polyfill&apos;</span><br><span class="line">import apiBaseUrlConfig from &apos;./global/apiBaseUrlConfig&apos;</span><br><span class="line">// 引入elementUI</span><br><span class="line">import ElementUI from &apos;element-ui&apos;</span><br><span class="line">import utils from &apos;./global/utils&apos;</span><br><span class="line"></span><br><span class="line">// 引入自写公共组件</span><br><span class="line">import &apos;@/components/common&apos;</span><br><span class="line"></span><br><span class="line">// 自定义icon</span><br><span class="line">import &apos;@/assets/css/system_Setting/iconfont.css&apos;</span><br><span class="line">import Axios from &apos;axios&apos;</span><br><span class="line"></span><br><span class="line">import router from &apos;./router&apos; // 解决样式丢失问题</span><br><span class="line"></span><br><span class="line">Vue.use(apiBaseUrlConfig)</span><br><span class="line">Vue.use(ElementUI)</span><br></pre></td></tr></table></figure>
+<p><strong>B文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;import src=&quot;/second.wxml&quot;/&gt; // 递归导入模板</span><br><span class="line"> </span><br><span class="line">&lt;template name=&quot;first&quot;&gt;</span><br><span class="line">  &lt;view&gt;我是第一层&lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
 
-<p><strong>一个正在成长的前端小白~</strong></p>
+<p><strong>C文件</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;template name=&quot;second&quot;&gt;</span><br><span class="line">  &lt;view&gt;我是第二层&lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
+
+<p><strong>A中控制台结果</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">./pages/home/home.wxml</span><br><span class="line"> Template `second` not found.</span><br><span class="line">  24 | </span><br><span class="line">  25 | &lt;template is=&quot;first&quot;/&gt;</span><br><span class="line">&gt; 26 | &lt;template is=&quot;second&quot;/&gt;</span><br><span class="line">     |              ^</span><br><span class="line">  27 | </span><br><span class="line">  28 |</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>include导入</strong><blockquote>
+<p>1.将公共的wxml中的组件抽取到一个文件中<br>2.不能导入template/wxs，可以进行递归导入 </p>
+</blockquote>
+</li>
+</ul>
+<h3 id="WXS"><a href="#WXS" class="headerlink" title="WXS"></a>WXS</h3><h5 id="为什么要引入wxs？"><a href="#为什么要引入wxs？" class="headerlink" title="为什么要引入wxs？"></a>为什么要引入wxs？</h5><blockquote>
+<p>1.在WXML中是不能直接调用Page/Component中定义的函数的<br>2.但是某些情况，我们希望可以使用函数来处理WXML中的数据（类似于Vue中的过滤器），这个时候就要使用WXS</p>
+</blockquote>
+<h5 id="WXS使用的限制和特点："><a href="#WXS使用的限制和特点：" class="headerlink" title="WXS使用的限制和特点："></a>WXS使用的限制和特点：</h5><blockquote>
+<ul>
+<li>WXS的运行环境和其他JavaScript代码是隔离的，WXS中不能调用其他JavaScript文件中定义的函数，也不能调用小程序提供的API</li>
+<li>WXS函数不能作为组件的事件回调</li>
+<li>由于运行环境的差异，在IOS设备上小程序内的WXS会比JavaScript代码快2~20倍。在Android设备上两者运行效率无差异</li>
+</ul>
+</blockquote>
+<h3 id="点击事件对象中currentTarget与target的区别"><a href="#点击事件对象中currentTarget与target的区别" class="headerlink" title="点击事件对象中currentTarget与target的区别"></a>点击事件对象中currentTarget与target的区别</h3><p>正常情况下，两者中存放的值是一样的，但是由于事件的冒泡性，当一个组件中嵌套了一个内置组件时，点击内置组件会先后的触发内置组件的点击事件和外层组件的点击事件，这个时候，外层组件的currentTarget是其本身，而target则是内置组件。总结，currentTarget是触发事件的对象，target是产生事件的对象。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;view id=&quot;outer&quot; bindtap=&quot;handleOutClick&quot;&gt;</span><br><span class="line">  我是外层的view</span><br><span class="line">  &lt;view id=&quot;inner&quot; bindtap=&quot;handleInnerClick&quot;&gt;</span><br><span class="line">    我是内层的view</span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">&lt;/view&gt;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">handleOutClick (e) &#123;</span><br><span class="line">  console.log(e)</span><br><span class="line">&#125;,</span><br><span class="line">handleInnerClick (e) &#123;</span><br><span class="line">  console.log(e)</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">/*</span><br><span class="line">changedTouches: [&#123;…&#125;]</span><br><span class="line">currentTarget: &#123;id: &quot;inner&quot;, offsetLeft: 0, offsetTop: 162, dataset: &#123;…&#125;&#125;</span><br><span class="line">detail: &#123;x: 106, y: 214&#125;</span><br><span class="line">mark: &#123;&#125;</span><br><span class="line">mut: false</span><br><span class="line">target: &#123;id: &quot;inner&quot;, offsetLeft: 0, offsetTop: 162, dataset: &#123;…&#125;&#125;</span><br><span class="line">timeStamp: 225847</span><br><span class="line">touches: [&#123;…&#125;]</span><br><span class="line">type: &quot;tap&quot;</span><br><span class="line">*/</span><br><span class="line">/*</span><br><span class="line">changedTouches: [&#123;…&#125;]</span><br><span class="line">currentTarget: &#123;id: &quot;outer&quot;, offsetLeft: 0, offsetTop: 141, dataset: &#123;…&#125;&#125;</span><br><span class="line">detail: &#123;x: 106, y: 214&#125;</span><br><span class="line">mark: &#123;&#125;</span><br><span class="line">mut: false</span><br><span class="line">target: &#123;id: &quot;inner&quot;, offsetLeft: 0, offsetTop: 162, dataset: &#123;…&#125;&#125;</span><br><span class="line">timeStamp: 225847</span><br><span class="line">touches: [&#123;…&#125;]</span><br><span class="line">type: &quot;tap&quot;</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+
+<h3 id="点击事件对象中changedTouches与touches的区别"><a href="#点击事件对象中changedTouches与touches的区别" class="headerlink" title="点击事件对象中changedTouches与touches的区别"></a>点击事件对象中changedTouches与touches的区别</h3><p>两者都是一个存放手指触摸屏幕的数组，touches存放的是当前触摸屏幕所有手指的位置等信息，当手指离开屏幕时为空数组，但是changedTouches存放的是触摸前后发生变化的所有手指的位置等信息。例如第一次用食指触摸在屏幕上某一块，在食指未松开的状态下，再用中指触摸屏幕上食指触摸的同一块，此时touches中存放了食指和中指两根手指的位置等信息，而changedTouches只存放了中指的位置等信息。</p>
+<h3 id="事件的捕获与冒泡"><a href="#事件的捕获与冒泡" class="headerlink" title="事件的捕获与冒泡"></a>事件的捕获与冒泡</h3><p>当界面产生一个事件时，事件分为了<strong>捕获阶段</strong>和<strong>冒泡阶段</strong>。<br><img src="https://img-blog.csdnimg.cn/20191218092811199.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="catch"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- bind：层次传递 --&gt;</span><br><span class="line"> </span><br><span class="line">&lt;view class=&quot;view1&quot; capture-bind:tap=&quot;handleCaptureView1&quot; bindtap=&quot;handleBindView1&quot;&gt;</span><br><span class="line">  &lt;view class=&quot;view2&quot; capture-bind:tap=&quot;handleCaptureView2&quot; bindtap=&quot;handleBindView2&quot;&gt;</span><br><span class="line">    &lt;view class=&quot;view3&quot; capture-bind:tap=&quot;handleCaptureView3&quot; bindtap=&quot;handleBindView3&quot;&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">&lt;/view&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- 点击view3 --&gt;</span><br><span class="line">handleCaptureView1</span><br><span class="line">handleCaptureView2</span><br><span class="line">handleCaptureView3</span><br><span class="line">handleBindView3</span><br><span class="line">handleBindView2</span><br><span class="line">handleBindView1</span><br><span class="line"> </span><br><span class="line">&lt;!-- 点击view2 --&gt;</span><br><span class="line">handleCaptureView1</span><br><span class="line">handleCaptureView2</span><br><span class="line">handleBindView2</span><br><span class="line">handleBindView1</span><br><span class="line"> </span><br><span class="line">&lt;!-- 点击view1 --&gt;</span><br><span class="line">handleCaptureView1</span><br><span class="line">handleBindView1</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">&lt;!-- catch：阻止事件的进一步传递 --&gt;</span><br><span class="line"> </span><br><span class="line">&lt;view class=&quot;view1&quot; capture-bind:tap=&quot;handleCaptureView1&quot; bindtap=&quot;handleBindView1&quot;&gt;</span><br><span class="line">  &lt;view class=&quot;view2&quot; capture-catch:tap=&quot;handleCaptureView2&quot; catchtap=&quot;handleBindView2&quot;&gt;</span><br><span class="line">    &lt;view class=&quot;view3&quot; capture-bind:tap=&quot;handleCaptureView3&quot; bindtap=&quot;handleBindView3&quot;&gt;</span><br><span class="line">    &lt;/view&gt;</span><br><span class="line">  &lt;/view&gt;</span><br><span class="line">&lt;/view&gt;</span><br><span class="line"> </span><br><span class="line">&lt;!-- 点击view3 --&gt;</span><br><span class="line">handleCaptureView1</span><br><span class="line">handleCaptureView2</span><br><span class="line"> </span><br><span class="line">&lt;!-- 点击view2 --&gt;</span><br><span class="line">handleCaptureView1</span><br><span class="line">handleCaptureView2</span><br><span class="line"> </span><br><span class="line">&lt;!-- 点击view1 --&gt;</span><br><span class="line">handleCaptureView1</span><br><span class="line">handleBindView1</span><br></pre></td></tr></table></figure>
+
+<h5 id="自定义组件"><a href="#自定义组件" class="headerlink" title="自定义组件"></a>自定义组件</h5><blockquote>
+<ul>
+<li>首先需要在json文件中进行自定义组件声明，（将component字段设为true可将这一组组件设为自定义组件）</li>
+<li>在wxml中编写属于我们组件自己的模板</li>
+<li>在wxss中编写属于我们组件自己的相关样式</li>
+<li>在js文件中，可以定义数据或组件内部的相关逻辑</li>
+</ul>
+</blockquote>
+<h5 id="组件的样式细节"><a href="#组件的样式细节" class="headerlink" title="组件的样式细节"></a>组件的样式细节</h5><ul>
+<li><p><strong>组件内的样式</strong>对<strong>外部样式</strong>的影响</p>
+<blockquote>
+<p>1.组件内的class样式，只对组件wxml内的节点生效，对于引用组件的page页面不生效<br>2.组件内不能使用id选择器、属性选择器、标签选择器</p>
+</blockquote>
+</li>
+<li><p><strong>外部样式</strong>对<strong>组件内样式</strong>的影响</p>
+<blockquote>
+<p>1.外部使用class的样式，只对外部wxml的class生效，对组件内是不生效的<br>2.外部使用了id选择器、属性选择器不会对组件内产生影响<br>3.外部使用了标签选择器，会对组件内产生影响</p>
+</blockquote>
+</li>
+<li><p><strong>结论</strong></p>
+<blockquote>
+<p>1.组件内的class样式和组件外的class样式，默认是有一个隔离效果的<br>2.为了防止样式的错乱，官方不推荐使用id、属性、标签选择器</p>
+</blockquote>
+</li>
+<li><p><strong>如何让class可以相互影响</strong><br>在自定义组件的js文件中的Component对象中，可以传入一个options属性，options属性中有一个styleIsolation（样式隔离）属性。styleIsolation共用三个取值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Component(&#123;</span><br><span class="line">  options: &#123;</span><br><span class="line">    styleIsolation: &quot;isolated/apply.shared/shared&quot;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Δ -isolated：默认取值，启用样式隔离，在自定义组件内外，使用class指定的样式将不会相互影响（<strong>互不影响</strong>）</p>
+</li>
+</ul>
+<p>Δ -apply-shared：使用自定义组件的页面wxss样式会影响自定义组件，自定义组件wxss样式不会影响页面（<strong>单向影响</strong>）</p>
+<p>Δ -shared：使用自定义组件的页面wxss样式会影响自定义组件，自定义组件wxss样式同样会影响页面（<strong>相互影响</strong>）</p>
+<p>Δ 其他一些相关样式细节，可参考<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/wxml-wxss.html" target="_blank" rel="noopener">官网</a></p>
+<h3 id="页面与组件之间通信"><a href="#页面与组件之间通信" class="headerlink" title="页面与组件之间通信"></a>页面与组件之间通信</h3><p><img src="https://img-blog.csdnimg.cn/20191224131600266.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="communication"></p>
+<h5 id="API接口常用配置"><a href="#API接口常用配置" class="headerlink" title="API接口常用配置"></a>API接口常用配置</h5><p>|  属性  |  类型  |  默认值  |  必填  |  说明  |<br>|  :—–  |  :—–  |  :—–  |  :—–  |<br>|  url  |  string  |    |  是  |  请求服务器地址  |<br>|  data  |  string/object/ArrayBuffer  |    |  否  |  请求参数  |<br>|  header  |  object  |    |  否  |  设置请求头，header中不能设置Referer，content-type默认为application/json  |<br>|  method  |  string  |  get  |  否  |  http请求方法  |<br>|  dataType  |  string  |  json      |  否  |  返回的数据格式  |<br>|  responseType  |  string  |    |  否  |  响应的数据类型  |<br>|  success  |  function  |    |  否  |  接口调用成功的回调函数  |<br>|  fail  |  function  |    |  否  |  接口调用失败的回调函数  |<br>|  complete  |  function  |    |  否  |  接口调用结束的回调函数（无论成功、失败都会执行）  |</p>
 
       
 
@@ -204,7 +348,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">mini</a>
         		</li>
       		
 		</ul>
@@ -216,7 +360,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/vue//" class="article-tag-list-link color4">vue</a>
+        			<a href="/categories/mini-application//" class="article-tag-list-link color2">mini application</a>
         		</li>
       		
 		</ul>
@@ -271,7 +415,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/12/17/vue-package.html" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/01/12/mini-application.html" alt="微信分享二维码">
     </div>
 </div>
 
@@ -285,18 +429,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/12/17/javascript-prototype.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          JavaScript原型链理解
-        
-      </div>
-    </a>
   
-  
-    <a href="/2019/11/30/component-communication.html" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Vue通过总线实现任意两个组件的通信</div>
+    <a href="/2019/12/17/javascript-prototype.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JavaScript原型链理解</div>
       <i class="icon-circle-right"></i>
     </a>
   

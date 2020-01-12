@@ -19,7 +19,7 @@
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191210141110693.jpg?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191218092811199.jpg?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70">
 <meta property="og:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191224131600266.jpg?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70">
-<meta property="og:updated_time" content="2020-01-12T12:59:26.104Z">
+<meta property="og:updated_time" content="2020-01-12T13:02:59.250Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https:&#x2F;&#x2F;img-blog.csdnimg.cn&#x2F;20191210141110693.jpg?x-oss-process=image&#x2F;watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70">
   
@@ -236,7 +236,30 @@
 <h5 id="尺寸单位"><a href="#尺寸单位" class="headerlink" title="尺寸单位"></a>尺寸单位</h5><ul>
 <li><strong>rpx(responsive pixel)</strong>：可以根据屏幕宽度进行自适应，规定屏幕宽为750rpx；如在iPhone6上，屏幕宽度为375px，共有750个物理像素，则750rpx = 375px = 750物理像素，1rpx = 0.5px = 1物理像素。 </li>
 </ul>
-<p>|  设备  |  rpx换算px（屏幕宽度/750）  |  px换算rpx（750/屏幕宽度）  |<br>|  :—–  |  :—–  |  :—–  |  :—–  |<br>|  iPhone5  |  1rpx = 0.42px  |  1px = 2.34rpx  |<br>|  iPhone6  |      1rpx = 0.5px  |  1px = 2rpx  |<br>|  iPhone6 Plus  |  1rpx = 0.552px  |  1px = 1.81rpx  |</p>
+<table>
+<thead>
+<tr>
+<th align="left">设备</th>
+<th align="left">rpx换算px（屏幕宽度/750）</th>
+<th align="left">px换算rpx（750/屏幕宽度）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">iPhone5</td>
+<td align="left">1rpx = 0.42px</td>
+<td align="left">1px = 2.34rpx</td>
+</tr>
+<tr>
+<td align="left">iPhone6</td>
+<td align="left">1rpx = 0.5px</td>
+<td align="left">1px = 2rpx</td>
+</tr>
+<tr>
+<td align="left">iPhone6 Plus</td>
+<td align="left">1rpx = 0.552px</td>
+<td align="left">1px = 1.81rpx</td>
+</tr>
+</tbody></table>
 <h5 id="关于WXML导入的两种方式："><a href="#关于WXML导入的两种方式：" class="headerlink" title="关于WXML导入的两种方式："></a>关于WXML导入的两种方式：</h5><ul>
 <li><strong>import导入：</strong><blockquote>
 <p>1.主要是导入template<br>2.不能进行递归导入（例如，B中导入C，A中导入B，A中使用C时会报错：not found C）</p>
@@ -313,7 +336,80 @@
 <p>Δ -shared：使用自定义组件的页面wxss样式会影响自定义组件，自定义组件wxss样式同样会影响页面（<strong>相互影响</strong>）</p>
 <p>Δ 其他一些相关样式细节，可参考<a href="https://developers.weixin.qq.com/miniprogram/dev/framework/custom-component/wxml-wxss.html" target="_blank" rel="noopener">官网</a></p>
 <h3 id="页面与组件之间通信"><a href="#页面与组件之间通信" class="headerlink" title="页面与组件之间通信"></a>页面与组件之间通信</h3><p><img src="https://img-blog.csdnimg.cn/20191224131600266.jpg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="communication"></p>
-<h5 id="API接口常用配置"><a href="#API接口常用配置" class="headerlink" title="API接口常用配置"></a>API接口常用配置</h5><p>|  属性  |  类型  |  默认值  |  必填  |  说明  |<br>|  :—–  |  :—–  |  :—–  |  :—–  |<br>|  url  |  string  |    |  是  |  请求服务器地址  |<br>|  data  |  string/object/ArrayBuffer  |    |  否  |  请求参数  |<br>|  header  |  object  |    |  否  |  设置请求头，header中不能设置Referer，content-type默认为application/json  |<br>|  method  |  string  |  get  |  否  |  http请求方法  |<br>|  dataType  |  string  |  json      |  否  |  返回的数据格式  |<br>|  responseType  |  string  |    |  否  |  响应的数据类型  |<br>|  success  |  function  |    |  否  |  接口调用成功的回调函数  |<br>|  fail  |  function  |    |  否  |  接口调用失败的回调函数  |<br>|  complete  |  function  |    |  否  |  接口调用结束的回调函数（无论成功、失败都会执行）  |</p>
+<h5 id="API接口常用配置"><a href="#API接口常用配置" class="headerlink" title="API接口常用配置"></a>API接口常用配置</h5><table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">类型</th>
+<th align="left">默认值</th>
+<th align="left">必填</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">url</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">是</td>
+<td align="left">请求服务器地址</td>
+</tr>
+<tr>
+<td align="left">data</td>
+<td align="left">string/object/ArrayBuffer</td>
+<td align="left"></td>
+<td align="left">否</td>
+<td align="left">请求参数</td>
+</tr>
+<tr>
+<td align="left">header</td>
+<td align="left">object</td>
+<td align="left"></td>
+<td align="left">否</td>
+<td align="left">设置请求头，header中不能设置Referer，content-type默认为application/json</td>
+</tr>
+<tr>
+<td align="left">method</td>
+<td align="left">string</td>
+<td align="left">get</td>
+<td align="left">否</td>
+<td align="left">http请求方法</td>
+</tr>
+<tr>
+<td align="left">dataType</td>
+<td align="left">string</td>
+<td align="left">json</td>
+<td align="left">否</td>
+<td align="left">返回的数据格式</td>
+</tr>
+<tr>
+<td align="left">responseType</td>
+<td align="left">string</td>
+<td align="left"></td>
+<td align="left">否</td>
+<td align="left">响应的数据类型</td>
+</tr>
+<tr>
+<td align="left">success</td>
+<td align="left">function</td>
+<td align="left"></td>
+<td align="left">否</td>
+<td align="left">接口调用成功的回调函数</td>
+</tr>
+<tr>
+<td align="left">fail</td>
+<td align="left">function</td>
+<td align="left"></td>
+<td align="left">否</td>
+<td align="left">接口调用失败的回调函数</td>
+</tr>
+<tr>
+<td align="left">complete</td>
+<td align="left">function</td>
+<td align="left"></td>
+<td align="left">否</td>
+<td align="left">接口调用结束的回调函数（无论成功、失败都会执行）</td>
+</tr>
+</tbody></table>
 
       
 
@@ -565,7 +661,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">echarts</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -577,15 +677,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">echarts</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">mini</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -593,7 +689,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">mini</a>
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
             
             <div class="clearfix"></div>

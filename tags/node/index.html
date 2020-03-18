@@ -6,17 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Element动态增减表单项中嵌套下拉菜单踩坑 | 我不张杨的博客</title>
+  <title>Tag: node | 我不张杨的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="动态生成的表单项中的中的command事件会作用于所有的，通过$event给command传递当前的索引，达到改变当前的command值时触发的command事件只会改变当前表单显示的值">
-<meta name="keywords" content="Vue,Element,JavaScript">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Element动态增减表单项中嵌套下拉菜单踩坑">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;11&#x2F;22&#x2F;element-forminlinedropdown.html">
+  <meta name="description" content="一个正在成长的前端小白">
+<meta property="og:type" content="website">
+<meta property="og:title" content="我不张杨的博客">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;tags&#x2F;node&#x2F;index.html">
 <meta property="og:site_name" content="我不张杨的博客">
-<meta property="og:description" content="动态生成的表单项中的中的command事件会作用于所有的，通过$event给command传递当前的索引，达到改变当前的command值时触发的command事件只会改变当前表单显示的值">
+<meta property="og:description" content="一个正在成长的前端小白">
 <meta property="og:locale" content="zn-Hans">
-<meta property="og:updated_time" content="2019-11-28T12:35:40.990Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="我不张杨的博客" type="application/atom+xml">
@@ -141,196 +139,71 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-element-forminlinedropdown" class="article article-type-post " itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      Element动态增减表单项中嵌套下拉菜单踩坑
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2020" class="archive-year">2020</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2020/03/18/about-node.html" class="archive-article-date">
+  	<time datetime="2020-03-18T02:50:12.851Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-18</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2020/03/18/about-node.html">Node常用模块及方法汇总</a>
     </h1>
   
 
-        
-        <a href="/2019/11/22/element-forminlinedropdown.html" class="archive-article-date">
-  	<time datetime="2019-11-22T12:20:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><em>使用ELement时动态增减表单遇到的一个小小坑，当在动态改变的表单项中内嵌了一层下拉菜单dropdown时，我需要通过dropdown的command事件来控制显示dropdown-menu中的dropdown-item，但是官方文档中的command事件不支持接受除command属性之外的参数，那么便无法特定的修改动态增加的表单项中的某一个表单项中的下拉框，此路不通，灵机一动，想起Vue自带的$event属性，可以给事件传入一些额外的参数，废话不多说，上代码</em></p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"export_main"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-form</span> <span class="attr">:model</span>=<span class="string">"exportAddressConfig"</span> <span class="attr">:inline</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span></span></span><br><span class="line"><span class="tag">      <span class="attr">v-for</span>=<span class="string">"(item, index) in exportAddressConfig.address"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:key</span>=<span class="string">"item.key"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:label</span>=<span class="string">"'导出地址' + (index + 1) + '：'"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:prop</span>=<span class="string">"'address.' + index + '.value'"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">:rules</span>=<span class="string">"&#123;required: true, message: '地址不能为空', trigger: 'blur'&#125;"</span></span></span><br><span class="line"><span class="tag">      <span class="attr">style</span>=<span class="string">"display: block;"</span></span></span><br><span class="line"><span class="tag">    &gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-dropdown</span> <span class="attr">trigger</span>=<span class="string">"click"</span> @<span class="attr">command</span>=<span class="string">"handleCommand($event, index)"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">"el-dropdown-link select_type"</span>&gt;</span>&#123;&#123;item.defaultOption&#125;&#125;</span><br><span class="line">        <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"el-icon-caret-bottom el-icon--right"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">el-dropdown-menu</span> <span class="attr">slot</span>=<span class="string">"dropdown"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-dropdown-item</span> <span class="attr">command</span>=<span class="string">"1"</span>&gt;</span>FTP地址<span class="tag">&lt;/<span class="name">el-dropdown-item</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">el-dropdown-item</span> <span class="attr">command</span>=<span class="string">"2"</span>&gt;</span>共享文件夹地址<span class="tag">&lt;/<span class="name">el-dropdown-item</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">el-dropdown-menu</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">el-dropdown</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-if</span>=<span class="string">"item.addressType === '1'"</span> <span class="attr">v-model</span>=<span class="string">"item.value"</span> <span class="attr">:disabled</span>=<span class="string">"exportFrom"</span> <span class="attr">placeholder</span>=<span class="string">"请输入FTP地址"</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-input</span> <span class="attr">v-if</span>=<span class="string">"item.addressType === '2'"</span> <span class="attr">v-model</span>=<span class="string">"item.value"</span> <span class="attr">:disabled</span>=<span class="string">"exportFrom"</span> <span class="attr">placeholder</span>=<span class="string">"请输入共享文件夹地址"</span>&gt;</span><span class="tag">&lt;/<span class="name">el-input</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">"text"</span> @<span class="attr">click</span>=<span class="string">"addExportAddress"</span> <span class="attr">:disabled</span>=<span class="string">"addActive"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"el-icon-circle-plus-outline"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">      新增导出地址</span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">el-form-item</span> <span class="attr">style</span>=<span class="string">"margin-left: 180px;"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">"text"</span> @<span class="attr">click</span>=<span class="string">"removeExportAddress"</span> <span class="attr">:disabled</span>=<span class="string">"removeActive"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">i</span> <span class="attr">class</span>=<span class="string">"el-icon-remove-outline"</span>&gt;</span><span class="tag">&lt;/<span class="name">i</span>&gt;</span></span><br><span class="line">    删除导出地址</span><br><span class="line">      <span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">el-form-item</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">el-form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">data() &#123;</span><br><span class="line">         <span class="keyword">return</span> &#123;</span><br><span class="line">           exportAddressConfig: &#123;</span><br><span class="line">             address: [&#123;</span><br><span class="line">               addressType: <span class="string">'1'</span>, <span class="comment">// 默认导出类型标志</span></span><br><span class="line">               defaultOption: <span class="string">'FTP地址'</span>, <span class="comment">// 默认导出地址</span></span><br><span class="line">               value: <span class="string">''</span> <span class="comment">// 地址</span></span><br><span class="line">              &#125;]</span><br><span class="line">            &#125;,</span><br><span class="line">            exportFrom: <span class="literal">false</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">        methods: &#123;</span><br><span class="line">          handleCommand(command, index) &#123;</span><br><span class="line">            <span class="keyword">this</span>.exportAddressConfig.address[index].addressType = command</span><br><span class="line">            <span class="keyword">this</span>.exportAddressConfig.address[index].defaultOption = command === <span class="string">'1'</span> ? <span class="string">'FTP地址'</span> : <span class="string">'共享文件夹地址'</span></span><br><span class="line">        &#125;,</span><br><span class="line">        addExportAddress() &#123;</span><br><span class="line">          <span class="keyword">this</span>.exportAddressConfig.address.push(&#123;</span><br><span class="line">            addressType: <span class="string">'1'</span>,</span><br><span class="line">            defaultOption: <span class="string">'FTP地址'</span>,</span><br><span class="line">            value: <span class="string">''</span>,</span><br><span class="line">            key: <span class="built_in">Date</span>.now()</span><br><span class="line">          &#125;)</span><br><span class="line">          <span class="keyword">this</span>.exportFrom = <span class="literal">false</span></span><br><span class="line">        &#125;,</span><br><span class="line">        removeExportAddress() &#123;</span><br><span class="line">          <span class="keyword">if</span> (<span class="keyword">this</span>.exportAddressConfig.address.length &gt; <span class="number">1</span>) &#123;</span><br><span class="line">            <span class="keyword">this</span>.exportAddressConfig.address.pop()</span><br><span class="line">           &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
-
-<p><em>解决这个问题的关键就是在于在循环生成的下拉框的command事件中，把每一次循环的索引值传入，在触发command事件时，就可以对当前索引值的下拉框的菜单项进行操作，而不会改变所有生成的下拉框的菜单项。</em></p>
-<p><strong>还在学习成长的前端小白，用词不太准确，文字功底也有限，欢迎大家指正，一起学习，一同成长。</strong></p>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Vue</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Element</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">node</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/前端//" class="article-tag-list-link color3">前端</a>
+        			<a href="/categories/node//" class="article-tag-list-link color5">node</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/11/22/element-forminlinedropdown.html" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2019/11/22/git.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Git常用命令与常见问题
-        
-      </div>
-    </a>
   
   
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -353,9 +226,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

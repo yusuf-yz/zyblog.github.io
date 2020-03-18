@@ -191,53 +191,46 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">const gulp = require(&apos;gulp&apos;)</span><br><span class="line">const fileinclude = require(&apos;gulp-file-include&apos;)</span><br></pre></td></tr></table></figure>
 <ul>
 <li><p><em>gulp-htmlmin</em>：html文件压缩</p>
-<ul>
-<li><pre><code>const htmlmin = require(&apos;gulp-htmlmin&apos;)
-gulp.task(&apos;htmlmin&apos;, () =&gt; {
-  gulp.src(&apos;./src/*.html&apos;) // *.xxx代表选择该文件夹中的所有xxx类型的文件
-      // 先抽取公共文件抽取再进行压缩、转换等操作
-      .pipe(fileinclude())
-      .pipe(htmlmin({ collaseWhitespace: true })) // collaseWhitespace: true为压缩空格，false为不压缩空格
-      .pipe(gulp.dest(&apos;dist&apos;))
-})
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* *gulp-csso*：压缩css</span><br><span class="line">    *</span><br></pre></td></tr></table></figure>
-const csso = require(&apos;gulp-csso&apos;)
-gulp.task(&apos;cssmin&apos;, () =&gt; {
-  gulp.src(&apos;./src/css/*.css&apos;)
-      .pipe(csso())
-      .pipe(gulp.dest(&apos;dist&apos;))
-})
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* *gulp-babel*：JavaScript语法转化（ES6转换）</span><br><span class="line">    *</span><br></pre></td></tr></table></figure>
-const babel = require(&apos;gulp-babel&apos;)
-gulp.task(&apos;jsmin&apos;, () =&gt; {
-  gulp.src(&apos;./src/js/*.js&apos;)
-      .pipe(babel({
-        // 可以判断当前代码的运行环境，将代码转换为当前运行环境所支持的代码
-        presets: [&apos;@babel/env&apos;]
-      }))
-      .pipe(gulp.dest(&apos;dist/js&apos;))
-})
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* *gulp-less*：less语法转化</span><br><span class="line">*</span><br></pre></td></tr></table></figure>
-const less = require(&apos;gulp-less&apos;)
-gulp.task(&apos;cssmin&apos;, () =&gt; {
-  gulp.src([&apos;./src/css/*.less&apos;, &apos;./src/css/*.css&apos;]) // 要处理多个文件时，用[]接收
-      .pipe(less())
-      .pipe(gulp.dest(&apos;dist/css&apos;))
-})
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">* *gulp-uglify*：压缩混淆JavaScript</span><br><span class="line">    *</span><br></pre></td></tr></table></figure>
-const uglify = require(&apos;gulp-uglify&apos;)
-gulp.task(&apos;jsmin&apos;, () =&gt; {
-  gulp.src(&apos;./src/js/*.js&apos;)
-      .pipe(uglify())
-      .pipe(gulp.dest(&apos;dist/js&apos;))
-})
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">* *gulp-file-include*：公共文件抽取</span><br><span class="line"></span><br><span class="line">* *browsersync*：浏览器实时同步</span><br><span class="line"></span><br><span class="line">#### 模块查找规则</span><br><span class="line">1、路径完整、省略后缀</span><br></pre></td></tr></table></figure>
-require(&apos;./find.js&apos;) // 有后缀
-require(&apos;./find&apos;) // 无后缀
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">* 如果是完整路径，直接引入模块</span><br><span class="line"></span><br><span class="line">* 如果模块后缀省略，先找同名JS文件，找不到再找同名JS文件夹</span><br><span class="line"></span><br><span class="line">* 如果找到了同名JS文件夹，引入文件夹中的index.js</span><br><span class="line"></span><br><span class="line">* 如果文件夹中没有index.js，找当前文件夹中的package.json，引入main选项中的入口文件（一般默认为index.js）</span><br><span class="line"></span><br><span class="line">* 如果package.js不存在或main中没有指定入口文件，报错，找不到该模块</span><br><span class="line"></span><br><span class="line">2、路径不完整，且省略后缀</span><br></pre></td></tr></table></figure>
-require(&apos;find&apos;)</code></pre></li>
-</ul>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">const htmlmin = require(&apos;gulp-htmlmin&apos;)</span><br><span class="line">gulp.task(&apos;htmlmin&apos;, () =&gt; &#123;</span><br><span class="line">  gulp.src(&apos;./src/*.html&apos;) // *.xxx代表选择该文件夹中的所有xxx类型的文件</span><br><span class="line">      // 先抽取公共文件抽取再进行压缩、转换等操作</span><br><span class="line">      .pipe(fileinclude())</span><br><span class="line">      .pipe(htmlmin(&#123; collaseWhitespace: true &#125;)) // collaseWhitespace: true为压缩空格，false为不压缩空格</span><br><span class="line">      .pipe(gulp.dest(&apos;dist&apos;))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 </li>
+<li><p><em>gulp-csso</em>：压缩css</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const csso = require(&apos;gulp-csso&apos;)</span><br><span class="line">gulp.task(&apos;cssmin&apos;, () =&gt; &#123;</span><br><span class="line">  gulp.src(&apos;./src/css/*.css&apos;)</span><br><span class="line">      .pipe(csso())</span><br><span class="line">      .pipe(gulp.dest(&apos;dist&apos;))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><em>gulp-babel</em>：JavaScript语法转化（ES6转换）</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const babel = require(&apos;gulp-babel&apos;)</span><br><span class="line">gulp.task(&apos;jsmin&apos;, () =&gt; &#123;</span><br><span class="line">  gulp.src(&apos;./src/js/*.js&apos;)</span><br><span class="line">      .pipe(babel(&#123;</span><br><span class="line">        // 可以判断当前代码的运行环境，将代码转换为当前运行环境所支持的代码</span><br><span class="line">        presets: [&apos;@babel/env&apos;]</span><br><span class="line">      &#125;))</span><br><span class="line">      .pipe(gulp.dest(&apos;dist/js&apos;))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><em>gulp-less</em>：less语法转化</p>
+  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const less = require(&apos;gulp-less&apos;)</span><br><span class="line">gulp.task(&apos;cssmin&apos;, () =&gt; &#123;</span><br><span class="line">  gulp.src([&apos;./src/css/*.less&apos;, &apos;./src/css/*.css&apos;]) // 要处理多个文件时，用[]接收</span><br><span class="line">      .pipe(less())</span><br><span class="line">      .pipe(gulp.dest(&apos;dist/css&apos;))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ul>
+<ul>
+<li><p><em>gulp-uglify</em>：压缩混淆JavaScript</p>
+   <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const uglify = require(&apos;gulp-uglify&apos;)</span><br><span class="line">gulp.task(&apos;jsmin&apos;, () =&gt; &#123;</span><br><span class="line">  gulp.src(&apos;./src/js/*.js&apos;)</span><br><span class="line">      .pipe(uglify())</span><br><span class="line">      .pipe(gulp.dest(&apos;dist/js&apos;))</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><em>gulp-file-include</em>：公共文件抽取</p>
+</li>
+<li><p><em>browsersync</em>：浏览器实时同步</p>
+</li>
+</ul>
+<h4 id="模块查找规则"><a href="#模块查找规则" class="headerlink" title="模块查找规则"></a>模块查找规则</h4><p>1、路径完整、省略后缀</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">require(&apos;./find.js&apos;) // 有后缀</span><br><span class="line">require(&apos;./find&apos;) // 无后缀</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>如果是完整路径，直接引入模块</p>
+</li>
+<li><p>如果模块后缀省略，先找同名JS文件，找不到再找同名JS文件夹</p>
+</li>
+<li><p>如果找到了同名JS文件夹，引入文件夹中的index.js</p>
+</li>
+<li><p>如果文件夹中没有index.js，找当前文件夹中的package.json，引入main选项中的入口文件（一般默认为index.js）</p>
+</li>
+<li><p>如果package.js不存在或main中没有指定入口文件，报错，找不到该模块</p>
+</li>
+</ul>
+<p>2、路径不完整，且省略后缀</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">require(&apos;find&apos;)</span><br></pre></td></tr></table></figure>
+<ul>
 <li><p>默认为系统模块，到系统模块中进行查找</p>
 </li>
 <li><p>系统模块未找到，到node_modules文件夹中查找</p>
@@ -1581,15 +1574,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">echarts</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Vue</a>
+                <a href="javascript:void(0)" class="js-tag color3">Element</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1597,7 +1590,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Element</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1610,10 +1607,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">hexo</a>
               </li>
             
             <div class="clearfix"></div>

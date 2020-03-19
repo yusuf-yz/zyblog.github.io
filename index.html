@@ -141,6 +141,142 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-about-mongodb" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2020/03/19/about-mongodb.html">MongoDB</a>
+    </h1>
+  
+
+        
+        <a href="/2020/03/19/about-mongodb.html" class="archive-article-date">
+  	<time datetime="2020-03-19T07:14:21.041Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-03-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="创建集合"><a href="#创建集合" class="headerlink" title="创建集合"></a>创建集合</h4><ul>
+<li>设定集合规则<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const courseSchema = new mongoose.Schema(&#123;</span><br><span class="line">  name: String,</span><br><span class="line">  author: String,</span><br><span class="line">  isPublished: Boolean</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>创建集合并运用规则<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const Course = mongoose.model(&apos;Course&apos;, courseSchema)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="创建文档（向集合中插入数据）"><a href="#创建文档（向集合中插入数据）" class="headerlink" title="创建文档（向集合中插入数据）"></a>创建文档（向集合中插入数据）</h4><ul>
+<li>创建集合实例<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">const course = new Course(&#123;</span><br><span class="line">  name: &apos;Node.js course&apos;,</span><br><span class="line">  author: &apos;zy&apos;,</span><br><span class="line">  tags: [&apos;node&apos;],</span><br><span class="line">  isPublished: true</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>保存到数据库<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">course.save()</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="导入外部文件（先将mongodb安装目录下的bin配置在环境变量中）"><a href="#导入外部文件（先将mongodb安装目录下的bin配置在环境变量中）" class="headerlink" title="导入外部文件（先将mongodb安装目录下的bin配置在环境变量中）"></a>导入外部文件（先将mongodb安装目录下的bin配置在环境变量中）</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mongoimport -d 数据库名称 -c 集合名称 --file 要导入的外部数据文件</span><br></pre></td></tr></table></figure>
+
+<h4 id="查询文档（返回结果都是集合，方法结束后都是一个promise对象，可以接then）"><a href="#查询文档（返回结果都是集合，方法结束后都是一个promise对象，可以接then）" class="headerlink" title="查询文档（返回结果都是集合，方法结束后都是一个promise对象，可以接then）"></a>查询文档（返回结果都是集合，方法结束后都是一个promise对象，可以接then）</h4><ul>
+<li>返回所有文档<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find()</span><br></pre></td></tr></table></figure></li>
+<li>返回一条文档，默认返回当前集合中的第一条文档<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">findOne()</span><br></pre></td></tr></table></figure></li>
+<li>匹配范围<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User.find(&#123;age: &#123;$gt: 20, $lt: 40&#125;&#125;).then(res =&gt; &#123;console.log(res)&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>匹配包含<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User.find(&#123;hobbies: &#123;$in: [&apos;旅行&apos;]&#125;&#125;).then(res =&gt; &#123;console.log(res)&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>选择要查询的字段<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User.find.select(&apos;name email&apos;).then(res =&gt; &#123;console.log(res)&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>选择不要查询的字段<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User.find.select(&apos;-name -email&apos;).then(res =&gt; &#123;console.log(res)&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>根据某个字段排序（升序）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User.find.sort(&apos;age&apos;).then(res =&gt; &#123;console.log(res)&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>根据某个字段排序（降序）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User.find.sort(&apos;-age&apos;).then(res =&gt; &#123;console.log(res)&#125;)</span><br></pre></td></tr></table></figure></li>
+<li>skip跳过多少条数据 limit限制查询数量<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User.find.skip(2).limit(6).then(res =&gt; &#123;console.log(res)&#125;)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="删除文档"><a href="#删除文档" class="headerlink" title="删除文档"></a>删除文档</h4><ul>
+<li>删除一条文档（如果查询条件匹配了多个文档，删除匹配的第一条文档）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User.findOneAndDelete(&#123;id: 1&#125;).then(res =&gt; &#123;console.log(res)&#125;) // 返回的是删除的文档</span><br></pre></td></tr></table></figure></li>
+<li>删除多条文档（删除条件为{}时，删除User集合中的所有文档）<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User.deleteMany(&#123;id: 1&#125;).then(res =&gt; &#123;console.log(res)&#125;) // 返回的是删除的一个结果对象，包括删除的条数n，删除成功或失败的状态ok</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="更新文档"><a href="#更新文档" class="headerlink" title="更新文档"></a>更新文档</h4><ul>
+<li>更新单个<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User.updateOne(&#123;name: &apos;李四&apos;&#125;, &#123;name: &apos;张三&apos;&#125;).then(res =&gt; &#123;console.log(res)&#125;) // 返回的是是否修改成功的信息</span><br></pre></td></tr></table></figure></li>
+<li>更新多个<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User.updateMany(&#123;&#125;, &#123;age: 32&#125;).then(res =&gt; &#123;console.log(res)&#125;) // 返回的是是否修改成功的信息，包括被执行更新的条数n，更新的条数nModified，成功或失败的状态ok</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="验证规则"><a href="#验证规则" class="headerlink" title="验证规则"></a>验证规则</h4><ul>
+<li>验证规则<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line">const postSchema = new mongoose.Schema(&#123;</span><br><span class="line">  title: &#123;</span><br><span class="line">    type: String,</span><br><span class="line">    // 必选字段</span><br><span class="line">    required: [true, &apos;自定义错误信息&apos;],</span><br><span class="line">    // 字符串最小长度</span><br><span class="line">    minlength: [2, &apos;自定义错误信息&apos;],</span><br><span class="line">    // 字符串最大长度</span><br><span class="line">    maxlength: [6, &apos;自定义错误信息&apos;],</span><br><span class="line">    // 去除字符串两边的空格</span><br><span class="line">    trim: true</span><br><span class="line">  &#125;,</span><br><span class="line">  age: &#123;</span><br><span class="line">    type: Number,</span><br><span class="line">    // 数值的最小值</span><br><span class="line">    min: [18, &apos;自定义错误信息&apos;],</span><br><span class="line">    // 数值的最大值</span><br><span class="line">    max: [66, &apos;自定义错误信息&apos;]</span><br><span class="line">  &#125;,</span><br><span class="line">  publishDate: &#123;</span><br><span class="line">    type: Date,</span><br><span class="line">    // 默认值</span><br><span class="line">    default: Date.now</span><br><span class="line">  &#125;,</span><br><span class="line">  category: &#123;</span><br><span class="line">    type: String,</span><br><span class="line">    // 枚举 列举出当前字段可以拥有的值</span><br><span class="line">    enum: &#123;</span><br><span class="line">      values: [&apos;html&apos;, &apos;css&apos;, &apos;javascript&apos;, &apos;node.js&apos;],</span><br><span class="line">      message: &apos;自定义错误信息&apos;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  author: &#123;</span><br><span class="line">    type: String,</span><br><span class="line">    // 自定义验证规则</span><br><span class="line">    validate: &#123;</span><br><span class="line">      validator: v =&gt; &#123;</span><br><span class="line">        // 返回布尔值 v为要验证的值</span><br><span class="line">        return v &amp;&amp; v.length &gt; 4 </span><br><span class="line">      &#125;,</span><br><span class="line">      // 自定义错误信息</span><br><span class="line">      message: &apos;自定义错误信息&apos;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h4 id="集合关联"><a href="#集合关联" class="headerlink" title="集合关联"></a>集合关联</h4><ul>
+<li>用户集合<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">const User = mongoose.model(&apos;User&apos;, new mongoose.Schema(&#123;</span><br><span class="line">  name: &#123;</span><br><span class="line">    type: String</span><br><span class="line">  &#125;</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure></li>
+<li>文章集合<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">const Post = mongoose.model(&apos;Post&apos;, new mongoose.Schema(&#123;</span><br><span class="line">  title: &#123;</span><br><span class="line">    type: String</span><br><span class="line">  &#125;,</span><br><span class="line">  // 使用ID将文章作者与作者集合进行关联，ID为compass自动生成的</span><br><span class="line">  author: &#123;</span><br><span class="line">    type: mongoose.Schema.Types.ObjectId, ref: &apos;User&apos;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;))</span><br></pre></td></tr></table></figure></li>
+<li>联合查询<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Post.find()</span><br><span class="line">    .populate(&apos;author&apos;)</span><br><span class="line">    .then((err, result) =&gt; &#123;console.log(result)&#125;)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p><strong>一个正在成长的前端小白~</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">mongodb</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/mongodb//" class="article-tag-list-link color3">mongodb</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2020/03/19/about-mongodb.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-about-node" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1376,99 +1512,6 @@
 
 
   
-    <article id="post-git-clone-mistake" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/11/24/git-clone-mistake.html">The authenticity of host &#39;github.com (0.0.0.0)（里面是你的ip地址）&#39; can&#39;t be established.</a>
-    </h1>
-  
-
-        
-        <a href="/2019/11/24/git-clone-mistake.html" class="archive-article-date">
-  	<time datetime="2019-11-24T12:44:38.220Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h6 id="在git-clone项目时出现过两次这个问题，第一次是在自己电脑上把本地项目推送到远程后加了ssh，然后在公司电脑去git-clone时出现了这个问题，第二次是自己电脑重装系统后，再去git-clone时出现了这个问题。究其原因，都是因为本地仓库和远程的ssh不匹配。"><a href="#在git-clone项目时出现过两次这个问题，第一次是在自己电脑上把本地项目推送到远程后加了ssh，然后在公司电脑去git-clone时出现了这个问题，第二次是自己电脑重装系统后，再去git-clone时出现了这个问题。究其原因，都是因为本地仓库和远程的ssh不匹配。" class="headerlink" title="在git clone项目时出现过两次这个问题，第一次是在自己电脑上把本地项目推送到远程后加了ssh，然后在公司电脑去git clone时出现了这个问题，第二次是自己电脑重装系统后，再去git clone时出现了这个问题。究其原因，都是因为本地仓库和远程的ssh不匹配。"></a>在git clone项目时出现过两次这个问题，第一次是在自己电脑上把本地项目推送到远程后加了ssh，然后在公司电脑去git clone时出现了这个问题，第二次是自己电脑重装系统后，再去git clone时出现了这个问题。究其原因，都是因为本地仓库和远程的ssh不匹配。</h6><p><strong>解决办法：</strong></p>
-<p>1、当出现Are you sure you want to continue connecting (yes/no)?时，选择yes<br><img src="https://img-blog.csdnimg.cn/20191124203544418.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="First Step"></p>
-<p>2、ls -al ~/.ssh<br><img src="https://img-blog.csdnimg.cn/20191124203612960.png" alt="Second Step"></p>
-<p>3、ssh-keygen -t rsa -C “你的github用户名”，然后按三次回车<br><img src="https://img-blog.csdnimg.cn/20191124203736355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="Third Step"></p>
-<p>4、cat ~/.ssh/id_rsa.pub生成新的SSH<br><img src="https://img-blog.csdnimg.cn/201911242038149.png" alt="Fourth Step"></p>
-<p>5、登陆github,点击头像-settings-new SSH,复制新生成的SSH<br><img src="https://img-blog.csdnimg.cn/20191124203920429.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="Fifty Step"></p>
-<p><img src="https://img-blog.csdnimg.cn/20191124204035909.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="Fifty Step"></p>
-<p>6、可以正常clone</p>
-<p><strong>一个正在成长的前端小白~</strong></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/git//" class="article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/11/24/git-clone-mistake.html">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &amp;raquo;</a>
@@ -1607,6 +1650,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>

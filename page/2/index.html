@@ -141,6 +141,99 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-git-clone-mistake" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/24/git-clone-mistake.html">The authenticity of host &#39;github.com (0.0.0.0)（里面是你的ip地址）&#39; can&#39;t be established.</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/24/git-clone-mistake.html" class="archive-article-date">
+  	<time datetime="2019-11-24T12:44:38.220Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h6 id="在git-clone项目时出现过两次这个问题，第一次是在自己电脑上把本地项目推送到远程后加了ssh，然后在公司电脑去git-clone时出现了这个问题，第二次是自己电脑重装系统后，再去git-clone时出现了这个问题。究其原因，都是因为本地仓库和远程的ssh不匹配。"><a href="#在git-clone项目时出现过两次这个问题，第一次是在自己电脑上把本地项目推送到远程后加了ssh，然后在公司电脑去git-clone时出现了这个问题，第二次是自己电脑重装系统后，再去git-clone时出现了这个问题。究其原因，都是因为本地仓库和远程的ssh不匹配。" class="headerlink" title="在git clone项目时出现过两次这个问题，第一次是在自己电脑上把本地项目推送到远程后加了ssh，然后在公司电脑去git clone时出现了这个问题，第二次是自己电脑重装系统后，再去git clone时出现了这个问题。究其原因，都是因为本地仓库和远程的ssh不匹配。"></a>在git clone项目时出现过两次这个问题，第一次是在自己电脑上把本地项目推送到远程后加了ssh，然后在公司电脑去git clone时出现了这个问题，第二次是自己电脑重装系统后，再去git clone时出现了这个问题。究其原因，都是因为本地仓库和远程的ssh不匹配。</h6><p><strong>解决办法：</strong></p>
+<p>1、当出现Are you sure you want to continue connecting (yes/no)?时，选择yes<br><img src="https://img-blog.csdnimg.cn/20191124203544418.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="First Step"></p>
+<p>2、ls -al ~/.ssh<br><img src="https://img-blog.csdnimg.cn/20191124203612960.png" alt="Second Step"></p>
+<p>3、ssh-keygen -t rsa -C “你的github用户名”，然后按三次回车<br><img src="https://img-blog.csdnimg.cn/20191124203736355.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="Third Step"></p>
+<p>4、cat ~/.ssh/id_rsa.pub生成新的SSH<br><img src="https://img-blog.csdnimg.cn/201911242038149.png" alt="Fourth Step"></p>
+<p>5、登陆github,点击头像-settings-new SSH,复制新生成的SSH<br><img src="https://img-blog.csdnimg.cn/20191124203920429.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="Fifty Step"></p>
+<p><img src="https://img-blog.csdnimg.cn/20191124204035909.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="Fifty Step"></p>
+<p>6、可以正常clone</p>
+<p><strong>一个正在成长的前端小白~</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/git//" class="article-tag-list-link color4">git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/24/git-clone-mistake.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-javascript-common-mistakes" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -793,6 +886,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
             
             <div class="clearfix"></div>

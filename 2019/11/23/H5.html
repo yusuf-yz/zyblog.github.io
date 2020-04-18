@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="我不张杨的博客">
 <meta property="og:description" content="HTML5不基于SGML（Standard Generalized Markup Language 标准通用标记语言），因此不需要对DTD（DTD 文档类型定义）进行引用，但是需要DOCTYPE来规范浏览器行为。">
 <meta property="og:locale" content="zn-Hans">
-<meta property="og:updated_time" content="2020-04-18T15:19:05.308Z">
+<meta property="og:updated_time" content="2020-04-18T15:24:53.678Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="我不张杨的博客" type="application/atom+xml">
@@ -184,7 +184,61 @@
 <p><strong>SVG 的优势</strong><br><em>（1）可通过文本编辑器来创建和修改</em><br><em>（2）可被搜索引擎搜索到</em><br><em>（3）SVG 可在任何的分辨率下被高质量的打印</em><br><em>（4）可在图片质量不下降的情况下被放大</em><br><em>（5）支持事件绑定</em></p>
 <p><strong>与 canvas 的区别</strong><br><em>实际开发中，多用 SVG</em><br><em>不依赖分辨率</em><br><em>支持事件处理器</em><br><em>不适合游戏</em><br><em>大型渲染区域的程序(例如，百度地图)</em></p>
 <p><strong>不管是 SVG 还是 Canvas，在一个页面中都可以同时定义多个。</strong></p>
-<h5 id="video、audio-新媒体视频-音频"><a href="#video、audio-新媒体视频-音频" class="headerlink" title="video、audio 新媒体视频/音频"></a>video、audio 新媒体视频/音频</h5><p><strong>audio 常见属性</strong><br>| 属性 | 值 | 描述 |<br>| :—– | :—– | :—– |<br>| autoplay | autoplay | 视频就绪自动播放（谷歌浏览器需要添加 muted 来解决自动播放问题） |<br>| controls | controls | 显示播放控件 |<br>| width | pixels（像素） | 设置播放器宽度 |<br>| height | pixels（像素） | 设置播放器高度 |<br>| loop | loop | 是否循环播放 |<br>| preload | auto（预先加载）none（不预先加载） | 设置是否预加载视频，如果设置了 autoplay 属性，会忽略该属性 |<br>| src | url | 视频地址 |<br>| poster | imgUrl | 加载等待时画面的显示的图片 |<br>| muted | muted | 是否静音播放 |</p>
+<h5 id="video、audio-新媒体视频-音频"><a href="#video、audio-新媒体视频-音频" class="headerlink" title="video、audio 新媒体视频/音频"></a>video、audio 新媒体视频/音频</h5><p><strong>audio 常见属性</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">属性</th>
+<th align="left">值</th>
+<th align="left">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">autoplay</td>
+<td align="left">autoplay</td>
+<td align="left">视频就绪自动播放（谷歌浏览器需要添加 muted 来解决自动播放问题）</td>
+</tr>
+<tr>
+<td align="left">controls</td>
+<td align="left">controls</td>
+<td align="left">显示播放控件</td>
+</tr>
+<tr>
+<td align="left">width</td>
+<td align="left">pixels（像素）</td>
+<td align="left">设置播放器宽度</td>
+</tr>
+<tr>
+<td align="left">height</td>
+<td align="left">pixels（像素）</td>
+<td align="left">设置播放器高度</td>
+</tr>
+<tr>
+<td align="left">loop</td>
+<td align="left">loop</td>
+<td align="left">是否循环播放</td>
+</tr>
+<tr>
+<td align="left">preload</td>
+<td align="left">auto（预先加载）none（不预先加载）</td>
+<td align="left">设置是否预加载视频，如果设置了 autoplay 属性，会忽略该属性</td>
+</tr>
+<tr>
+<td align="left">src</td>
+<td align="left">url</td>
+<td align="left">视频地址</td>
+</tr>
+<tr>
+<td align="left">poster</td>
+<td align="left">imgUrl</td>
+<td align="left">加载等待时画面的显示的图片</td>
+</tr>
+<tr>
+<td align="left">muted</td>
+<td align="left">muted</td>
+<td align="left">是否静音播放</td>
+</tr>
+</tbody></table>
 <h5 id="WebSocket-SharedWorker"><a href="#WebSocket-SharedWorker" class="headerlink" title="WebSocket SharedWorker"></a>WebSocket SharedWorker</h5><p><em>实现浏览器内多个标签页之间的通信。也可以调用 localstorge、cookies 等本地存储方式。 localstorge 在另一个浏览上下文里被添加、修改或删除时，它都会触发一个事件，我们通过监听事件，控制它的值来进行页面信息通信。</em><br><strong>注意：Safari 在无痕模式下设置 localstorge 值时会抛出 QuotaExceededError 的异常。</strong><br><strong>Adobe Flash Socket ActiveX HTMLFile (IE) 基于 multipart 编码发送 XHR 基于长轮询的 XHR，可以引用 WebSocket.js 这个文件来兼容低版本浏览器。</strong></p>
 <p><strong>一个正在成长的前端小白~</strong></p>
 

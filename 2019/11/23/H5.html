@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="我不张杨的博客">
 <meta property="og:description" content="HTML5不基于SGML（Standard Generalized Markup Language 标准通用标记语言），因此不需要对DTD（DTD 文档类型定义）进行引用，但是需要DOCTYPE来规范浏览器行为。">
 <meta property="og:locale" content="zn-Hans">
-<meta property="og:updated_time" content="2019-11-28T12:36:37.413Z">
+<meta property="og:updated_time" content="2020-04-18T15:14:28.412Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="我不张杨的博客" type="application/atom+xml">
@@ -161,26 +161,31 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="语义化标签"><a href="#语义化标签" class="headerlink" title="语义化标签"></a>语义化标签</h5><p><em>header、footer、section、nav、aside、article</em><br><strong>作用（优势）</strong><br><em>（1）去掉或丢失样式的时候能够让页面呈现出清晰的结构</em><br><em>（2）有利于SEO和搜索引擎建立良好沟通，有助于爬虫抓取更多的信息，爬虫依赖于标签来确定上下文和各个关键字的权重</em><br><em>（3）方便其它设备解析</em><br><em>（4）便于团队开发和维护，语义化根据可读性</em></p>
+        <h5 id="语义化标签"><a href="#语义化标签" class="headerlink" title="语义化标签"></a>语义化标签</h5><p><em>header、footer、section、nav、aside、article</em><br><strong>作用（优势）</strong><br><em>（1）去掉或丢失样式的时候能够让页面呈现出清晰的结构</em><br><em>（2）有利于 SEO 和搜索引擎建立良好沟通，有助于爬虫抓取更多的信息，爬虫依赖于标签来确定上下文和各个关键字的权重</em><br><em>（3）方便其它设备解析</em><br><em>（4）便于团队开发和维护，语义化根据可读性</em></p>
 <h5 id="新表单元素"><a href="#新表单元素" class="headerlink" title="新表单元素"></a>新表单元素</h5><p><strong>progres：</strong> <em>进度条，展示连接或下载的进度</em><br><strong>meter：</strong> <em>刻度尺与度量衡，描述数据所处的阶段（红色危险，黄色警告，绿色优秀）</em><br><strong>output：</strong> <em>输出内容，与以上表示所处的数据是经过计算而输出得到的</em></p>
 <h5 id="新表单类型"><a href="#新表单类型" class="headerlink" title="新表单类型"></a>新表单类型</h5><p><em>number、email、tel、calendar、time、date、url、search…</em></p>
-<h5 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h5><p><em>localstorage、sessionStorage、indexedDB</em><br><strong>区别</strong><br><em>（1）cookies是为了标识用户身份而存储在用户本地终端上的数据，始终在同源http请求中携带，即cookies在浏览器和服务器间来回传递，而sessionstorage和localstorage不会自动把数据发给服务器，仅在本地保存</em><br><em>（2）存储大小的限制不同。cookie保存的数据很小，不能超过4k，而sessionstorage和localstorage保存的数据大，可达到5M</em><br><em>（3）数据的有效期不同。cookie在设置的cookie过期时间之前一直有效，即使窗口或者浏览器关闭。sessionstorage仅在浏览器窗口关闭之前有效。localstorage始终有效，窗口和浏览器关闭也一直保存，用作长久数据保存</em><br><em>（4）作用域不同。cookie在所有的同源窗口都是共享；sessionstorage不在不同的浏览器共享，即使同一页面；localstorage在所有同源窗口都是共享</em><br><strong>cookies，sessionStorage和localStorage都是保存在浏览器端，且是同源的。</strong></p>
-<h5 id="离线Web应用"><a href="#离线Web应用" class="headerlink" title="离线Web应用"></a>离线Web应用</h5><p><em>页面缓存指在有网络的状态下，离线web应用指的是在没有网络的情况下可以运行的应用。</em></p>
+<h5 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h5><p><em>localstorage、sessionStorage、indexedDB</em><br><strong>区别</strong><br><em>（1）cookies 是为了标识用户身份而存储在用户本地终端上的数据，始终在同源 http 请求中携带，即 cookies 在浏览器和服务器间来回传递，而 sessionstorage 和 localstorage 不会自动把数据发给服务器，仅在本地保存</em><br><em>（2）存储大小的限制不同。cookie 保存的数据很小，不能超过 4k，而 sessionstorage 和 localstorage 保存的数据大，可达到 5M</em><br><em>（3）数据的有效期不同。cookie 在设置的 cookie 过期时间之前一直有效，即使窗口或者浏览器关闭。sessionstorage 仅在浏览器窗口关闭之前有效。localstorage 始终有效，窗口和浏览器关闭也一直保存，用作长久数据保存</em><br><em>（4）作用域不同。cookie 在所有的同源窗口都是共享；sessionstorage 不在不同的浏览器共享，即使同一页面；localstorage 在所有同源窗口都是共享</em><br><strong>cookies，sessionStorage 和 localStorage 都是保存在浏览器端，且是同源的。</strong></p>
+<h5 id="离线-Web-应用"><a href="#离线-Web-应用" class="headerlink" title="离线 Web 应用"></a>离线 Web 应用</h5><p><em>页面缓存指在有网络的状态下，离线 web 应用指的是在没有网络的情况下可以运行的应用。</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(window.applicationCache)&#123;</span><br><span class="line">       //支持离线应用</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> <em>在线情况下，浏览器发现HTML头部有manifest属性，它会请求manifest文件，如果是第一次访问，那么浏览器就会根据manifest文件的内容下载相应的资源，并进行离线存储。如果已经访问过并且资源已经离线存储了，那么浏览器就会使用离线的资源加载页面。然后浏览器会对比新的manifest文件与旧的manifest文件，如果文件没有发生改变，就不会做任何操作，如果文件改变了，那么就会重新下载文件中的资源，并且进行离线存储。manifest文件是核心，记录着哪些文件需要离线缓存，如果使用manifest，在html标签内添加属性。例如：</em><br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;html manifest=&quot;cache.manifest&quot;&gt;</span><br></pre></td></tr></table></figure><br><em>manifest文件格式如下</em></p>
+
+<p><em>在线情况下，浏览器发现 HTML 头部有 manifest 属性，它会请求 manifest 文件，如果是第一次访问，那么浏览器就会根据 manifest 文件的内容下载相应的资源，并进行离线存储。如果已经访问过并且资源已经离线存储了，那么浏览器就会使用离线的资源加载页面。然后浏览器会对比新的 manifest 文件与旧的 manifest 文件，如果文件没有发生改变，就不会做任何操作，如果文件改变了，那么就会重新下载文件中的资源，并且进行离线存储。manifest 文件是核心，记录着哪些文件需要离线缓存，如果使用 manifest，在 html 标签内添加属性。例如：</em></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;html manifest=&quot;cache.manifest&quot;&gt;</span><br></pre></td></tr></table></figure>
+
+<p><em>manifest 文件格式如下</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CACHE MANIFEST</span><br><span class="line">    #缓存的文件</span><br><span class="line">    index.html</span><br><span class="line">    test.js</span><br><span class="line">    #不做缓存</span><br><span class="line">    NETWORK</span><br><span class="line">    /images/</span><br><span class="line">    FALLBACK</span><br><span class="line">    offline.html index.html</span><br></pre></td></tr></table></figure>
 
-<h5 id="地理定位"><a href="#地理定位" class="headerlink" title="地理定位"></a>地理定位</h5><p><em>提供 api访问地理位置，通过navigator.geolocation来实现访问。</em><br><em>三个方法：</em></p>
+<h5 id="地理定位"><a href="#地理定位" class="headerlink" title="地理定位"></a>地理定位</h5><p><em>提供 api 访问地理位置，通过 navigator.geolocation 来实现访问。</em><br><em>三个方法：</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getCurrentPosition()</span><br><span class="line">watchPosition()</span><br><span class="line">clearWatch</span><br></pre></td></tr></table></figure>
 
-<h5 id="canvas"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</h5><p><em>在页面上放置一个canvas元素，就相当于在页面上放置了一块画布，可以在其中进行图形的描绘。</em><br><em>canvas元素只是一块无色透明的区域，需要利用JS编写在其中进行绘画的脚本。</em><br><strong>在页画中放置canvas元素，首先，应该要指定的是·id、width、height三个属性 。例如：</strong></p>
+<h5 id="canvas"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</h5><p><em>在页面上放置一个 canvas 元素，就相当于在页面上放置了一块画布，可以在其中进行图形的描绘。</em><br><em>canvas 元素只是一块无色透明的区域，需要利用 JS 编写在其中进行绘画的脚本。</em><br><strong>在页画中放置 canvas 元素，首先，应该要指定的是·id、width、height 三个属性 。例如：</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;canvas id=&quot;canvas&quot; width=&quot;400&quot; height=&quot;300&quot; /&gt;</span><br></pre></td></tr></table></figure>
 
-<h5 id="svg绘图"><a href="#svg绘图" class="headerlink" title="svg绘图"></a>svg绘图</h5><p><em>（1）SVG是一种使用XML技术描述二维图形的语言,svg是一种矢量图</em><br><em>（2）并不属于HTML5专有内容，在HTML5出现之前，就有SVG内容，HTML5只不过提供了SVG原生的内容</em><br><em>（3） svg文件的扩展名为.svg</em></p>
-<p><strong>SVG的优势</strong><br><em>（1）可通过文本编辑器来创建和修改</em><br><em>（2）可被搜索引擎搜索到</em><br><em>（3）SVG可在任何的分辨率下被高质量的打印</em><br><em>（4）可在图片质量不下降的情况下被放大</em><br><em>（5）支持事件绑定</em></p>
-<p><strong>与canvas的区别</strong><br><em>实际开发中，多用SVG</em><br><em>不依赖分辨率</em><br><em>支持事件处理器</em><br><em>不适合游戏</em><br><em>大型渲染区域的程序(例如，百度地图)</em></p>
-<p><strong>不管是SVG还是Canvas，在一个页面中都可以同时定义多个。</strong></p>
-<h5 id="video、audio新媒体视频-音频"><a href="#video、audio新媒体视频-音频" class="headerlink" title="video、audio新媒体视频/音频"></a>video、audio新媒体视频/音频</h5><h5 id="WebSocket-SharedWorker"><a href="#WebSocket-SharedWorker" class="headerlink" title="WebSocket SharedWorker"></a>WebSocket SharedWorker</h5><p><em>实现浏览器内多个标签页之间的通信。也可以调用 localstorge、cookies 等本地存储方式。 localstorge 在另一个浏览上下文里被添加、修改或删除时，它都会触发一个事件，我们通过监听事件，控制它的值来进行页面信息通信。</em><br><strong>注意：Safari 在无痕模式下设置 localstorge 值时会抛出QuotaExceededError 的异常。</strong><br><strong>Adobe Flash Socket ActiveX HTMLFile (IE) 基于 multipart 编码发送 XHR 基于长轮询的 XHR，可以引用WebSocket.js这个文件来兼容低版本浏览器。</strong></p>
+<h5 id="svg-绘图"><a href="#svg-绘图" class="headerlink" title="svg 绘图"></a>svg 绘图</h5><p><em>（1）SVG 是一种使用 XML 技术描述二维图形的语言,svg 是一种矢量图</em><br><em>（2）并不属于 HTML5 专有内容，在 HTML5 出现之前，就有 SVG 内容，HTML5 只不过提供了 SVG 原生的内容</em><br><em>（3） svg 文件的扩展名为.svg</em></p>
+<p><strong>SVG 的优势</strong><br><em>（1）可通过文本编辑器来创建和修改</em><br><em>（2）可被搜索引擎搜索到</em><br><em>（3）SVG 可在任何的分辨率下被高质量的打印</em><br><em>（4）可在图片质量不下降的情况下被放大</em><br><em>（5）支持事件绑定</em></p>
+<p><strong>与 canvas 的区别</strong><br><em>实际开发中，多用 SVG</em><br><em>不依赖分辨率</em><br><em>支持事件处理器</em><br><em>不适合游戏</em><br><em>大型渲染区域的程序(例如，百度地图)</em></p>
+<p><strong>不管是 SVG 还是 Canvas，在一个页面中都可以同时定义多个。</strong></p>
+<h5 id="video、audio-新媒体视频-音频"><a href="#video、audio-新媒体视频-音频" class="headerlink" title="video、audio 新媒体视频/音频"></a>video、audio 新媒体视频/音频</h5><p><strong>audio 常见属性</strong><br>| 属性 | 值 | 描述 |<br>| :—– | :—– | :—– |<br>| autoplay | autoplay | 视频就绪自动播放（谷歌浏览器需要添加 muted 来解决自动播放问题） |<br>| controls | controls | 显示播放控件 |<br>| width | pixels（像素） | 设置播放器宽度 |<br>| height | pixels（像素） | 设置播放器高度 |<br>| loop | loop | 是否循环播放 |<br>| preload | auto（预先加载）none（不预先加载） | 设置是否预加载视频，如果设置了 autoplay 属性，会忽略该属性 |<br>| src | url | 视频地址 |<br>| poster | imgUrl | 加载等待时画面的显示的图片 |<br>| muted | muted | 是否静音播放 |</p>
+<h5 id="WebSocket-SharedWorker"><a href="#WebSocket-SharedWorker" class="headerlink" title="WebSocket SharedWorker"></a>WebSocket SharedWorker</h5><p><em>实现浏览器内多个标签页之间的通信。也可以调用 localstorge、cookies 等本地存储方式。 localstorge 在另一个浏览上下文里被添加、修改或删除时，它都会触发一个事件，我们通过监听事件，控制它的值来进行页面信息通信。</em><br><strong>注意：Safari 在无痕模式下设置 localstorge 值时会抛出 QuotaExceededError 的异常。</strong><br><strong>Adobe Flash Socket ActiveX HTMLFile (IE) 基于 multipart 编码发送 XHR 基于长轮询的 XHR，可以引用 WebSocket.js 这个文件来兼容低版本浏览器。</strong></p>
 <p><strong>一个正在成长的前端小白~</strong></p>
 
       
@@ -434,23 +439,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">H5</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">Element</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">git</a>
+                <a href="javascript:void(0)" class="js-tag color3">H5</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -458,19 +451,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">echarts</a>
+                <a href="javascript:void(0)" class="js-tag color4">git</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">node</a>
+                <a href="javascript:void(0)" class="js-tag color3">Element</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vue</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -479,6 +468,22 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">node</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">echarts</a>
               </li>
             
             <div class="clearfix"></div>

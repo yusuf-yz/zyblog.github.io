@@ -141,6 +141,103 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-hexo-generate-mistake" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/11/24/hexo-generate-mistake.html">hexo g 时提示&#34; command not found&#34;</a>
+    </h1>
+  
+
+        
+        <a href="/2019/11/24/hexo-generate-mistake.html" class="archive-article-date">
+  	<time datetime="2019-11-24T13:27:28.223Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>今天重装了系统后，本想学习一番后借助hexo搭建的blog写一点小笔记，结果写好后准备生成（hexo g）预览一下效果，没想到出现了bash: hexo: command not found，仔细检查了一下发现node_modules都装好了啊，有点懵的到网上查了一下，发现是环境变量没加上。以防下次又懵逼了，索性记下来把。ok，let’s write down.</em></p>
+<p>1、找到环境变量打开，ok，有很多方式可以打开，这里以Win10为例列举两种<br>第一种：<br><img src="https://img-blog.csdnimg.cn/20191124211005853.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="path"></p>
+<p><img src="https://img-blog.csdnimg.cn/20191124211054538.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="path"></p>
+<p><img src="https://img-blog.csdnimg.cn/20191124211148770.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="path"></p>
+<p>第二种：<br>直接打开设置，搜索控制面板<br><img src="https://img-blog.csdnimg.cn/20191124212226183.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="path"></p>
+<p><img src="https://img-blog.csdnimg.cn/20191124212200446.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="path"></p>
+<p>在控制面板中打开系统与安全<br><img src="https://img-blog.csdnimg.cn/20191124212302368.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="path"></p>
+<p>然后打开系统<br><img src="https://img-blog.csdnimg.cn/2019112421233178.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="path"></p>
+<p>好的，我们又到这里来了，下面的步骤就一样了<br><img src="https://img-blog.csdnimg.cn/20191124212357374.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="path"></p>
+<p>2、ok，现在我们已经找到环境变量了，直接单机打开，打开后选择Path后点编辑<br><img src="https://img-blog.csdnimg.cn/20191124211238289.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="path"></p>
+<p>3、在已有的变量值输入框里面添加上你hexo项目里node_modeles中.bin文件夹的路径，例如我的是E:\zy\zyblog\node_modules.bin，这里在添加时要记得用英文的;与前面一个路径进行隔开。<br><img src="https://img-blog.csdnimg.cn/20191124211817586.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="path"></p>
+<p>4、然后把所有的窗口都确定了就完事。这里快速拿到node_modeles中.bin文件夹的路径可以先在我的电脑中打开.bin这个文件夹，然后<br><img src="https://img-blog.csdnimg.cn/20191124212043511.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lfeXl5eW0=,size_16,color_FFFFFF,t_70" alt="path"></p>
+<p><strong>一个正在成长的前端小白~</strong></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/hexo//" class="article-tag-list-link color5">hexo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/11/24/hexo-generate-mistake.html">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-git-clone-mistake" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -971,6 +1068,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">CSS3</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
@@ -979,11 +1080,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">node</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">node</a>
+                <a href="javascript:void(0)" class="js-tag color3">echarts</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1000,10 +1105,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">hexo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">echarts</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -6,15 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Category: 系统 | 我不张杨的博客</title>
+  <title>CSS3的一些新特性 | 我不张杨的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一个正在成长的前端小白">
-<meta property="og:type" content="website">
-<meta property="og:title" content="我不张杨的博客">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;categories&#x2F;%E7%B3%BB%E7%BB%9F&#x2F;index.html">
+  <meta name="description" content="关于CSS3的一些新特性">
+<meta name="keywords" content="CSS3">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS3的一些新特性">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;19&#x2F;CSS3.html">
 <meta property="og:site_name" content="我不张杨的博客">
-<meta property="og:description" content="一个正在成长的前端小白">
+<meta property="og:description" content="关于CSS3的一些新特性">
 <meta property="og:locale" content="zn-Hans">
+<meta property="og:updated_time" content="2020-04-19T10:00:11.405Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="我不张杨的博客" type="application/atom+xml">
@@ -139,71 +141,346 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-CSS3" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/11/22/win10-active.html" class="archive-article-date">
-  	<time datetime="2019-11-22T15:43:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-11-22</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/11/22/win10-active.html">Win10各版本的激活方式</a>
+    <h1 class="article-title" itemprop="name">
+      CSS3的一些新特性
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/04/19/CSS3.html" class="archive-article-date">
+  	<time datetime="2020-04-19T08:31:16.557Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-04-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h5 id="属性选择器"><a href="#属性选择器" class="headerlink" title="属性选择器"></a>属性选择器</h5><table>
+<thead>
+<tr>
+<th align="left">选择器</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">E[attr]</td>
+<td align="left">选择具有 attr 属性的 E 元素</td>
+</tr>
+<tr>
+<td align="left">E[attr = ‘val’]</td>
+<td align="left">选择具有 attr 属性且属性值等于 val 的 E 元素</td>
+</tr>
+<tr>
+<td align="left">E[attr ^= ‘val’]</td>
+<td align="left">选择具有 attr 属性且属性值以 val 开头的 E 元素</td>
+</tr>
+<tr>
+<td align="left">E[attr $= ‘val’]</td>
+<td align="left">选择具有 attr 属性且属性值以 val 结尾的 E 元素</td>
+</tr>
+<tr>
+<td align="left">E[attr *= ‘val’]</td>
+<td align="left">选择具有 attr 属性且属性值含有 val 的 E 元素</td>
+</tr>
+</tbody></table>
+<p><strong>注意：类选择器、属性选择器、伪类选择器，权重都为 10</strong></p>
+<h5 id="结构伪类选择器"><a href="#结构伪类选择器" class="headerlink" title="结构伪类选择器"></a>结构伪类选择器</h5><table>
+<thead>
+<tr>
+<th align="left">选择符</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">E:first-child</td>
+<td align="left">匹配父元素中的第一个子元素 E</td>
+</tr>
+<tr>
+<td align="left">E:last-child</td>
+<td align="left">匹配父元素中的最后一个子元素 E</td>
+</tr>
+<tr>
+<td align="left">E:nth-child(n)</td>
+<td align="left">匹配父元素中的第 n 个子元素 E</td>
+</tr>
+<tr>
+<td align="left">E:first-of-type</td>
+<td align="left">匹配类型为 E 的第一个</td>
+</tr>
+<tr>
+<td align="left">E:last-of-type</td>
+<td align="left">匹配类型为 E 的最后一个</td>
+</tr>
+<tr>
+<td align="left">E:nth-of-type(n)</td>
+<td align="left">匹配类型为 E 的第 n 个</td>
+</tr>
+</tbody></table>
+<h6 id="nth-child-n"><a href="#nth-child-n" class="headerlink" title="nth-child(n)"></a>nth-child(n)</h6><ul>
+<li>n 可以是数字，关键字和公式</li>
+<li>n 如果是数字，就选择第 n 个元素，n 从 1 开始</li>
+<li>n 可以是关键字，even 代表偶数，odd 代表奇数</li>
+<li>n 可以是公式，常见的公式如下（如果 n 是公式，则从 0 开始计算，但是第 0 个元素或者超出了元素的个数会被忽略）</li>
+</ul>
+<h6 id="nth-child-n-与-nth-of-type-n-的区别"><a href="#nth-child-n-与-nth-of-type-n-的区别" class="headerlink" title="nth-child(n) 与 nth-of-type(n) 的区别"></a>nth-child(n) 与 nth-of-type(n) 的区别</h6><ul>
+<li>E:nth-child(n) 在执行时会先把选择到的所有盒子都先进行排序，再执行 nth-child(n)，然后再与 E 匹配</li>
+<li>E:nth-of-type(n) 在执行时会先把指定的所有盒子都先进行排序，再与 E 匹配，然后再执行 nth-child(n)</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">/* html */</span><br><span class="line">&lt;section&gt;</span><br><span class="line">  &lt;p&gt;羊&lt;/p&gt;</span><br><span class="line">  &lt;div&gt;羊羊&lt;/div&gt;</span><br><span class="line">  &lt;div&gt;羊羊羊&lt;/div&gt;</span><br><span class="line">&lt;/section&gt;</span><br><span class="line"></span><br><span class="line">/* css */</span><br><span class="line">section div:nth-child(1) &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line">section div:nth-of-type(1) &#123;</span><br><span class="line">  color: blue;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* 第一个选择限定的样式无效，第二个选择限定的样式生效*/</span><br></pre></td></tr></table></figure>
+
+<h5 id="伪元素选择器"><a href="#伪元素选择器" class="headerlink" title="伪元素选择器"></a>伪元素选择器</h5><table>
+<thead>
+<tr>
+<th align="left">选择符</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">::before</td>
+<td align="left">在元素内部的前面插入内容</td>
+</tr>
+<tr>
+<td align="left">::after</td>
+<td align="left">在元素内部的后面插入内容</td>
+</tr>
+</tbody></table>
+<p><strong>注意：</strong></p>
+<ul>
+<li>before 和 after 会创建一个元素，属于行内元素</li>
+<li>新创建的这个元素在文档树中是找不到的，所以称为伪元素</li>
+<li>语法：element::before {}</li>
+<li>before 和 after 必须有 content 属性</li>
+<li>before 在父元素内容的前面创建元素，after 在父元素内容的后面创建元素</li>
+<li>伪元素选择器和标签选择器一样，权重都为 1</li>
+</ul>
+<h5 id="盒子模型"><a href="#盒子模型" class="headerlink" title="盒子模型"></a>盒子模型</h5><p>CSS3 中可以通过 box-sizing 来指定盒模型，可设置为 content-box 或者 border-box</p>
+<ul>
+<li>box-sizing: content-box 盒子大小为 width + padding + border （默认值）</li>
+<li>box-sizing: border-box 盒子大小为 width，padding 和 border 就不会撑大盒子了，前提是 padding + border &lt;= width</li>
+</ul>
+<h5 id="滤镜"><a href="#滤镜" class="headerlink" title="滤镜"></a>滤镜</h5><p>CSS3 中可以通过 <a href="https://www.runoob.com/cssref/css3-pr-filter.html" target="_blank" rel="noopener">filter</a> 将模糊或颜色偏移等图形效果应用于元素</p>
+<table>
+<thead>
+<tr>
+<th align="left">选择符</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">filter: none</td>
+<td align="left">默认值，无效果</td>
+</tr>
+<tr>
+<td align="left">filter: initial</td>
+<td align="left">设置属性为默认值</td>
+</tr>
+<tr>
+<td align="left">filter: inherit</td>
+<td align="left">从父元素继承该属性</td>
+</tr>
+<tr>
+<td align="left">filter: blur(px)</td>
+<td align="left">给图像设置高斯模糊。”radius”一值设定高斯函数的标准差，或者是屏幕上以多少像素融在一起， 所以值越大越模糊；如果没有设定值，则默认是 0；这个参数可设置 css 长度值，但不接受百分比值。</td>
+</tr>
+<tr>
+<td align="left">filter: brightness(%)</td>
+<td align="left">给图片应用一种线性乘法，使其看起来更亮或更暗。如果值是 0%，图像会全黑。值是 100%，则图像无变化。其他的值对应线性乘数效果。值超过 100%也是可以的，图像会比原来更亮。如果没有设定值，默认是 1。</td>
+</tr>
+<tr>
+<td align="left">filter: contrast(%)</td>
+<td align="left">调整图像的对比度。值是 0%的话，图像会全黑。值是 100%，图像不变。值可以超过 100%，意味着会运用更低的对比。若没有设置值，默认是 1。</td>
+</tr>
+<tr>
+<td align="left">filter: drop-shadow</td>
+<td align="left">给图像设置一个阴影效果。阴影是合成在图像下面，可以有模糊度的，可以以特定颜色画出的遮罩图的偏移版本。</td>
+</tr>
+<tr>
+<td align="left">filter: grayscale(%)</td>
+<td align="left">将图像转换为灰度图像。值定义转换的比例。值为 100%则完全转为灰度图像，值为 0%图像无变化。值在 0%到 100%之间，则是效果的线性乘子。若未设置，值默认是 0；</td>
+</tr>
+<tr>
+<td align="left">filter: hue-rotate(deg)</td>
+<td align="left">给图像应用色相旋转。”angle”一值设定图像会被调整的色环角度值。值为 0deg，则图像无变化。若值未设置，默认值是 0deg。该值虽然没有最大值，超过 360deg 的值相当于又绕一圈。</td>
+</tr>
+<tr>
+<td align="left">filter: invert(%)</td>
+<td align="left">反转输入图像。值定义转换的比例。100%的价值是完全反转。值为 0%则图像无变化。值在 0%和 100%之间，则是效果的线性乘子。 若值未设置，值默认是 0。</td>
+</tr>
+<tr>
+<td align="left">filter: opacity(%)</td>
+<td align="left">转化图像的透明程度。值定义转换的比例。值为 0%则是完全透明，值为 100%则图像无变化。值在 0%和 100%之间，则是效果的线性乘子，也相当于图像样本乘以数量。 若值未设置，值默认是 1。该函数与已有的 opacity 属性很相似，不同之处在于通过 filter，一些浏览器为了提升性能会提供硬件加速。</td>
+</tr>
+<tr>
+<td align="left">filter: saturate(%)</td>
+<td align="left">转换图像饱和度。值定义转换的比例。值为 0%则是完全不饱和，值为 100%则图像无变化。其他值，则是效果的线性乘子。超过 100%的值是允许的，则有更高的饱和度。 若值未设置，值默认是 1。</td>
+</tr>
+<tr>
+<td align="left">filter: sepia(%)</td>
+<td align="left">将图像转换为深褐色。值定义转换的比例。值为 100%则完全是深褐色的，值为 0%图像无变化。值在 0%到 100%之间，则是效果的线性乘子。若未设置，值默认是 0；</td>
+</tr>
+<tr>
+<td align="left">filter: url()</td>
+<td align="left">URL 函数接受一个 XML 文件，该文件设置了 一个 SVG 滤镜，且可以包含一个锚点来指定一个具体的滤镜元素。 例如：<code>filter: url(svg-url#element-id)</code></td>
+</tr>
+</tbody></table>
+<p><strong>一个正在成长的前端小白~</strong></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">操作系统</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">CSS3</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="/categories/系统//" class="article-tag-list-link color3">系统</a>
+        			<a href="/categories/CSS3//" class="article-tag-list-link color5">CSS3</a>
         		</li>
       		
 		</ul>
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/04/19/CSS3.html" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/03/19/about-mongodb.html" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">MongoDB</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -226,10 +503,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
-		isCategory: true,
+		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",

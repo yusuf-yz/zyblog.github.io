@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="我不张杨的博客">
 <meta property="og:description" content="HTML5不基于SGML（Standard Generalized Markup Language 标准通用标记语言），因此不需要对DTD（DTD 文档类型定义）进行引用，但是需要DOCTYPE来规范浏览器行为。">
 <meta property="og:locale" content="zn-Hans">
-<meta property="og:updated_time" content="2020-04-18T15:24:53.678Z">
+<meta property="og:updated_time" content="2020-04-19T08:13:37.592Z">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="我不张杨的博客" type="application/atom+xml">
@@ -164,6 +164,54 @@
         <h5 id="语义化标签"><a href="#语义化标签" class="headerlink" title="语义化标签"></a>语义化标签</h5><p><em>header、footer、section、nav、aside、article</em><br><strong>作用（优势）</strong><br><em>（1）去掉或丢失样式的时候能够让页面呈现出清晰的结构</em><br><em>（2）有利于 SEO 和搜索引擎建立良好沟通，有助于爬虫抓取更多的信息，爬虫依赖于标签来确定上下文和各个关键字的权重</em><br><em>（3）方便其它设备解析</em><br><em>（4）便于团队开发和维护，语义化根据可读性</em></p>
 <h5 id="新表单元素"><a href="#新表单元素" class="headerlink" title="新表单元素"></a>新表单元素</h5><p><strong>progres：</strong> <em>进度条，展示连接或下载的进度</em><br><strong>meter：</strong> <em>刻度尺与度量衡，描述数据所处的阶段（红色危险，黄色警告，绿色优秀）</em><br><strong>output：</strong> <em>输出内容，与以上表示所处的数据是经过计算而输出得到的</em></p>
 <h5 id="新表单类型"><a href="#新表单类型" class="headerlink" title="新表单类型"></a>新表单类型</h5><p><em>number、email、tel、calendar、time、date、url、search…</em></p>
+<table>
+<thead>
+<tr>
+<th align="left">属性值</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">type = ‘email’</td>
+<td align="left">限制用户输入类型必须为 Email 类型</td>
+</tr>
+<tr>
+<td align="left">type = ‘url’</td>
+<td align="left">限制用户输入类型必须为 URL 类型</td>
+</tr>
+<tr>
+<td align="left">type = ‘date’</td>
+<td align="left">限制用户输入类型必须为日期类型</td>
+</tr>
+<tr>
+<td align="left">type = ‘time’</td>
+<td align="left">限制用户输入类型必须为时间类型</td>
+</tr>
+<tr>
+<td align="left">type = ‘month’</td>
+<td align="left">限制用户输入类型必须为月类型</td>
+</tr>
+<tr>
+<td align="left">type = ‘week’</td>
+<td align="left">限制用户输入类型必须为周类型</td>
+</tr>
+<tr>
+<td align="left">type = ‘number’</td>
+<td align="left">限制用户输入类型必须为数字类型</td>
+</tr>
+<tr>
+<td align="left">type = ‘tel’</td>
+<td align="left">限制用户输入类型必须为电话类型</td>
+</tr>
+<tr>
+<td align="left">type = ‘search’</td>
+<td align="left">搜索框</td>
+</tr>
+<tr>
+<td align="left">type = ‘color’</td>
+<td align="left">颜色选择表单</td>
+</tr>
+</tbody></table>
 <h5 id="本地存储"><a href="#本地存储" class="headerlink" title="本地存储"></a>本地存储</h5><p><em>localstorage、sessionStorage、indexedDB</em><br><strong>区别</strong><br><em>（1）cookies 是为了标识用户身份而存储在用户本地终端上的数据，始终在同源 http 请求中携带，即 cookies 在浏览器和服务器间来回传递，而 sessionstorage 和 localstorage 不会自动把数据发给服务器，仅在本地保存</em><br><em>（2）存储大小的限制不同。cookie 保存的数据很小，不能超过 4k，而 sessionstorage 和 localstorage 保存的数据大，可达到 5M</em><br><em>（3）数据的有效期不同。cookie 在设置的 cookie 过期时间之前一直有效，即使窗口或者浏览器关闭。sessionstorage 仅在浏览器窗口关闭之前有效。localstorage 始终有效，窗口和浏览器关闭也一直保存，用作长久数据保存</em><br><em>（4）作用域不同。cookie 在所有的同源窗口都是共享；sessionstorage 不在不同的浏览器共享，即使同一页面；localstorage 在所有同源窗口都是共享</em><br><strong>cookies，sessionStorage 和 localStorage 都是保存在浏览器端，且是同源的。</strong></p>
 <h5 id="离线-Web-应用"><a href="#离线-Web-应用" class="headerlink" title="离线 Web 应用"></a>离线 Web 应用</h5><p><em>页面缓存指在有网络的状态下，离线 web 应用指的是在没有网络的情况下可以运行的应用。</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">if(window.applicationCache)&#123;</span><br><span class="line">       //支持离线应用</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -493,15 +541,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">H5</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">mongodb</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">node</a>
+                <a href="javascript:void(0)" class="js-tag color3">H5</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -509,7 +553,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">echarts</a>
+                <a href="javascript:void(0)" class="js-tag color5">node</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -529,15 +573,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">echarts</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">mini</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">操作系统</a>
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
             
             <div class="clearfix"></div>
